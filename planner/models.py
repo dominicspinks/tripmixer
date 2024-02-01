@@ -19,7 +19,7 @@ class Destination(models.Model):
     description=models.TextField(max_length=250)
 
     def __str__(self):
-        return self.name
+        return self.location
 
 class Itinerary(models.Model):
     destination = models.ForeignKey(Destination,on_delete=models.CASCADE)
@@ -28,4 +28,4 @@ class Itinerary(models.Model):
     description=models.TextField(max_length=250)
 
     def __str__(self):
-        return self.name
+        return self.description
