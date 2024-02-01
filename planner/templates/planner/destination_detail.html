@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Destination Details</h1>
+
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          {{ destination.location }}</span>
+      </div>
+      <div class="card-action">
+        {% comment %}
+        <a href="{% url 'destinations_update' destination.id %}">Edit</a>
+        <a href="{% url 'destinations_delete' destination.id %}">Delete</a>
+        {% endcomment %}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    {% for itinerary in destination.itinerary_set.all %}
+    <a href="{% url 'itinerary-detail' destination.id itinerary.id %}">
+      {{ itinerary.description }}</a>
+    {% endfor %}
+  </div>
+
+  {% endblock %}
