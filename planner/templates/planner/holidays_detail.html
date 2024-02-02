@@ -1,29 +1,68 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Holiday Details</h1>
-
-<div class="row">
-  <div class="col s6">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">
-          {{ holiday.name }}</span>
-      </div>
+<div class="holiday-detail">
+  <div class="holiday-title">{{ holiday.name }}</div>
+  <div class="holiday-dates">
+    <p>Start Date: {{ holiday.start_date }}</p>
+    <p>End Date: {{ holiday.end_date }}</p>
+  </div>
       <div class="card-action">
         {% comment %}
         <a href="{% url 'holidays_update' holiday.id %}">Edit</a>
         <a href="{% url 'holidays_delete' holiday.id %}">Delete</a>
         {% endcomment %}
       </div>
+   
+
+  <div class="destinations">
+    <h2>Destinations</h2>
+    {% if holiday.destination_set.all.count %}
+      {% for destination in holiday.destination_set.all %}
+      <div class="destination-card">
+          <a href="{% url 'destinations-detail' holiday.id destination.id %}">
+            {{ destination.location }}
+              <h2>{{ destination.location }}</h2><span>Date: {{ destination.start_date }} - {{ destination.end_date }}</span>
+          </a>
+      </div>
+      {% endfor %}
     </div>
-  </div>
+    {% else %}
+    <h5>No Destinations Found</h5>
+    {% endif %}
 
-  <div>
-    {% for destination in holiday.destination_set.all %}
-    <a href="{% url 'destinations-detail' holiday.id destination.id %}">
-      {{ destination.location }}</a>
-    {% endfor %}
-  </div>
+    
+    <style>
+      .holiday-detail {
+        max-width: 800px;
+        margin: auto;
+      }
+      
+      .holiday-title {
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
+      
+      .holiday-dates p {
+        color: #555;
+      }
+      
+      .destination-card {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 10px;
+        
+      }
+      
+      .destination-card a {
+        text-decoration: none;
+        color: black;
+      }
+      
+      .destination-card h3 {
+        margin-top: 0;
+      }
+      </style>
 
-  {% endblock %}
+{% endblock %}
