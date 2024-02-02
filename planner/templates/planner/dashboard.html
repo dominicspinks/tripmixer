@@ -1,7 +1,101 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Dashboard</h1>
+<style>
+    #content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    #banner-welcome {
+        height: 50px;
+        width: 100%;
+        background: grey;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #banner-welcome > div {
+        text-align: center;
+        color: white;
+    }
+    .section {
+        width: 400px;
+        border: 1px solid black;
+    }
+    .holiday-card {
+        margin: 20px;
+        border: 1px solid grey;
+        padding: 5px;
+    }
+    .holiday-details {
+        display: flex;
+        justify-content: space-between;
+    }
+    .section-header {
+        width: 100%;
+        background: grey;
+        color: white;
+        text-align: center;
+        padding: 5px 0 5px 0;
+        margin-bottom: 10px;
+    }
+    .section-footer {
+        width: 100%;
+        background: grey;
+        margin-top: 10px;
+    }
+    .section-footer a {
+        color: white;
+        text-decoration: none;
+        text-align: center;
+    }
+</style>
+<div id="banner-image">
+    <!-- Replace placeholder image with latest image from blog, if no blog posts, hide image -->
+    <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFubmVyfGVufDB8fDB8fHww" alt="banner" style="max-height: 200px; width: 100%; object-fit: cover;">
+</div>
+<div id="banner-welcome">
+    <!-- Replace 'username' with actual username -->
+    <div>Welcome username</div>
+</div>
+<div id="content">
+    <div id="holiday-list" class="section">
+        <div class="section-header">My Holidays</div>
+        {% for holiday in holidays %}
+        <div class="holiday-card">
+            <div class="holiday-details">
+                <span>{{ holiday.name }}</span> <span>{{ holiday.start_date }} - {{ holiday.end_date }}</span>
+            </div>
+            <div class="destination-list">
+                {% for destination in holiday.destination_set.all %}
+                <div class="destination">{{ destination.location }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        <div class="section-footer">
+            <a href="{% url 'holiday-list' %}">View my holidays</a>
+        </div>
+    </div>
+    <div id="my-blog-list" class="section">
+        <!-- list of recent blog posts by user-->
+        <div class="section-header">My Posts</div>
+        <div class="section-footer">
+            <a href="{% url 'holiday-list' %}">View my posts</a>
+        </div>
+    </div>
+    <div id="followed-users-blog" class="section">
+        <!-- list of recent blog posts by other users -->
+        <div class="section-header">Following</div>
+        <div class="section-footer">
+            <a href="{% url 'holiday-list' %}">View all following</a>
+        </div>
+    </div>
+
+</div>
 
 
 {% endblock %}

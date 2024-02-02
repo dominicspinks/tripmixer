@@ -21,26 +21,26 @@
         main {
             flex: 1 0 auto;
         }
-        nav {
+        .nav {
             background: grey;
         }
-        nav > div { 
+        .nav > div { 
             display: flex;
             justify-content: space-between;
         }
-        nav ul {
+        .nav ul {
             display: flex;
             gap: 5px;
         }
-        nav li {
+        .nav li {
             list-style-type: none;
             padding: 2px;
         }
-        nav a {
+        .nav a {
             text-decoration: none;
             color: white;
         }
-        footer {
+        .page-footer {
             position: absolute;
             bottom: 0;
             width: 100%;
@@ -48,7 +48,7 @@
         }
     </style>
     <header class="navbar-fixed">
-        <nav>
+        <nav class="nav">
             <div class="nav-wrapper">
                 <ul>
                     <li><a href="{% url 'planner-dashboard' %}" class="left brand-logo">&nbsp;&nbsp;TripMixer</a></li>

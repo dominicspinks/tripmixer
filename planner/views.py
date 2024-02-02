@@ -13,7 +13,8 @@ def holidays_list(request):
     return render(request, 'planner/holidays_list.html', { 'holidays': holidays})
 
 def planner_dashboard(request):
-    return render(request, 'planner/dashboard.html')
+    holidays = Holiday.objects.all().order_by('-start_date')[:3]
+    return render(request, 'planner/dashboard.html', { 'holidays': holidays })
 
 def holidays_detail(request, pk):
     holiday = Holiday.objects.get(id=pk)
