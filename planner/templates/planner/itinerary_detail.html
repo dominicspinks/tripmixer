@@ -7,17 +7,16 @@
   <div class="col s6">
     <div class="card">
       <div class="card-content">
-        <span class="card-title">
-          {{ itinerary.name }}</span>
+      <div>Destination : <a href="{% url 'destinations-detail' destination.holiday.id destination.id %}">{{ itinerary.destination }}</a></div>
+      <div>Start Date : {{ itinerary.start_date }}</div>
+      <div>End Date : {{ itinerary.end_date }}</div>
+      <div>Description : {{ itinerary.description }}</div>
       </div>
       <div class="card-action">
         {% comment %}
         <a href="{% url 'itinerary_update' itinerary.id %}">Edit</a>
         <a href="{% url 'itinerary_delete' itinerary.id %}">Delete</a>
         {% endcomment %}
-      </div>
-      <div>
-        {{ itinerary.description }}
       </div>
     </div>
   </div>
