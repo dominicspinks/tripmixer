@@ -65,10 +65,16 @@
         text-decoration: none;
         text-align: center;
     }
+
+    .btn {
+        border: 1px solid rgb(80, 80, 80);
+        background: grey;
+        color: white;
+    }
 </style>
 
 <h1>My Holidays</h1>
-
+<a class="btn" href="{% url 'holiday-create' %}">New Holiday</a>
 {% for holiday in holidays %}
 <a href="{% url 'holiday-detail' holiday.id %}">
     <div class="holiday-card">
