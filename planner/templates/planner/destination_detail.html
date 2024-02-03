@@ -7,8 +7,11 @@
   <div class="col s6">
     <div class="card">
       <div class="card-content">
-        <span class="card-title">
-          {{ destination.location }}</span>
+          <div>Location : {{ destination.location }}</div>
+          <div>Start Date : {{ destination.start_date }}</div>
+          <div>End Date : {{ destination.end_date }}</div>
+          <div>Description : {{ destination.description }}</div>
+          <div>Holiday : {{ destination.holiday }}</div>
       </div>
       <div class="card-action">
         {% comment %}
@@ -18,11 +21,13 @@
       </div>
     </div>
   </div>
-
+  <h2>Itinerary Lists</h2>
   <div>
     {% for itinerary in destination.itinerary_set.all %}
-    <a href="{% url 'itinerary-detail' destination.id itinerary.id %}">
+    <div>
+      <a href="{% url 'itinerary-detail' destination.id itinerary.id %}">
       {{ itinerary.description }}</a>
+    </div>
     {% endfor %}
   </div>
 

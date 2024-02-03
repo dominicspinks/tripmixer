@@ -8,6 +8,7 @@
         align-items: center;
         gap: 20px;
     }
+
     #banner-welcome {
         height: 50px;
         width: 100%;
@@ -17,23 +18,28 @@
         justify-content: center;
         align-items: center;
     }
-    #banner-welcome > div {
+
+    #banner-welcome>div {
         text-align: center;
         color: white;
     }
+
     .section {
         width: 400px;
         border: 1px solid black;
     }
+
     .holiday-card {
         margin: 20px;
         border: 1px solid grey;
         padding: 5px;
     }
+
     .holiday-details {
         display: flex;
         justify-content: space-between;
     }
+
     .section-header {
         width: 100%;
         background: grey;
@@ -42,11 +48,13 @@
         padding: 5px 0 5px 0;
         margin-bottom: 10px;
     }
+
     .section-footer {
         width: 100%;
         background: grey;
         margin-top: 10px;
     }
+
     .section-footer a {
         color: white;
         text-decoration: none;
@@ -55,7 +63,8 @@
 </style>
 <div id="banner-image">
     <!-- Replace placeholder image with latest image from blog, if no blog posts, hide image -->
-    <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFubmVyfGVufDB8fDB8fHww" alt="banner" style="max-height: 200px; width: 100%; object-fit: cover;">
+    <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmFubmVyfGVufDB8fDB8fHww"
+        alt="banner" style="max-height: 200px; width: 100%; object-fit: cover;">
 </div>
 <div id="banner-welcome">
     <!-- Replace 'username' with actual username -->
@@ -67,11 +76,16 @@
         {% for holiday in holidays %}
         <div class="holiday-card">
             <div class="holiday-details">
-                <span>{{ holiday.name }}</span> <span>{{ holiday.start_date }} - {{ holiday.end_date }}</span>
+                <span>
+                    {{ holiday.name }}</span> <span>
+                    {{ holiday.start_date }} -
+                    {{ holiday.end_date }}</span>
             </div>
             <div class="destination-list">
                 {% for destination in holiday.destination_set.all %}
-                <div class="destination">{{ destination.location }}</div>
+                <div class="destination">
+                    {{ destination.location }}
+                </div>
                 {% endfor %}
             </div>
         </div>
