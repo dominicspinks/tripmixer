@@ -60,7 +60,7 @@ class DestinationUpdate(UpdateView):
         holiday_id = self.object.holiday.id
         return reverse_lazy('holiday-detail', kwargs={'pk': holiday_id})
 
-class destination_delete(DeleteView):
+class DestinationDelete(DeleteView):
     model = Destination
 
     def get_success_url(self):
