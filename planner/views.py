@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
+from .destinationform import DestinationForm
 
 # Create your views here.
 def home(request):
@@ -18,7 +19,8 @@ def planner_dashboard(request):
 
 def holidays_detail(request, pk):
     holiday = Holiday.objects.get(id=pk)
-    return render(request, 'planner/holidays_detail.html', { 'holiday': holiday })
+    destination_form = DestinationForm()
+    return render(request, 'planner/holidays_detail.html', { 'holiday': holiday,'destination_form': destination_form })
 
 def destinations_detail(request, holiday_id, destination_id):
     destination = Destination.objects.get(id=destination_id)
@@ -27,3 +29,11 @@ def destinations_detail(request, holiday_id, destination_id):
 def itinerary_detail(request, destination_id, itinerary_id):
     itinerary = Itinerary.objects.get(id=itinerary_id)
     return render(request, 'planner/itinerary_detail.html', {'itinerary':itinerary})
+
+def add_destination(request, holiday_id):
+    form = DestinationForm(request.POST)
+    if form.is_valid():
+        new_destination = form.save(commit=False)
+        new_destination.holiday_id = holiday_id
+        new_destination.save()
+    return redirect('holiday-detail',pk=holiday_id)
