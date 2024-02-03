@@ -16,16 +16,7 @@ urlpatterns = [
     path('destinations/<int:destination_id>/itinerary/<int:itinerary_id>/', views.itinerary_detail, name='itinerary-detail'),
     path('destinations/<int:destination_id>/itinerary/create', views.ItinCreate.as_view(), name='itinerary_create'),
     path('destinations/<int:destination_id>/itinerary/<int:pk>/update', views.ItinUpdate.as_view(), name='itinerary_update'),
+    path('destinations/<int:destination_id>/itinerary/<int:pk>/delete', views.ItinDelete.as_view(), name='itinerary_delete'),
     path('accounts/signup/', views.signup, name='signup'),
 
 ]
-
-# planner/itinery/add
-# planner/itinery/<id>
-# planner/itinery/<id>/edit
-# planner/itinery/<id>/update
-# planner/itinery/<id>/delete
-
-# blog/
-# blog/add
-# blog/<id>
