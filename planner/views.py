@@ -32,7 +32,8 @@ def holidays_detail(request, pk):
 @login_required
 def destinations_detail(request, holiday_id, destination_id):
     destination = Destination.objects.get(id=destination_id)
-    return render(request, 'planner/destination_detail.html', {'destination': destination})
+    holiday = Holiday.objects.get(id=holiday_id)
+    return render(request, 'planner/destination_detail.html', {'destination': destination, 'holiday': holiday})
 
 @login_required
 def itinerary_detail(request, destination_id, itinerary_id):
