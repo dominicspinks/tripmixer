@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    #content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    #banner-welcome {
+        height: 50px;
+        width: 100%;
+        background: grey;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #banner-welcome>div {
+        text-align: center;
+        color: white;
+    }
+
+    .section {
+        width: 400px;
+        border: 1px solid black;
+    }
+
+    .holiday-card {
+        margin: 20px;
+        border: 1px solid grey;
+        padding: 5px;
+    }
+
+    .holiday-details {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .section-header {
+        width: 100%;
+        background: grey;
+        color: white;
+        text-align: center;
+        padding: 5px 0 5px 0;
+        margin-bottom: 10px;
+    }
+
+    .section-footer {
+        width: 100%;
+        background: grey;
+        margin-top: 10px;
+    }
+
+    .section-footer a {
+        color: white;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .btn {
+        border: 1px solid rgb(80, 80, 80);
+        background: grey;
+        color: white;
+    }
+</style>
+
+<h1>My Posts</h1>
+{% for post in posts %}
+<a href="{% url 'post-detail' post.id %}">
+    <div class="post-card">
+    </div>
+</a>
+{% endfor %}
+
+{% endblock %}
