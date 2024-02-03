@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.planner_dashboard, name='home'),
     path('dashboard/', views.planner_dashboard, name='planner-dashboard'),
     path('holidays/', views.holidays_list, name='holiday-list'),
+    path('holidays/new', views.HolidayCreate.as_view(), name='holiday-create'),
     path('holidays/<int:pk>/', views.holidays_detail, name='holiday-detail'),
     path('holidays/<int:holiday_id>/add_destination/',views.add_destination,name='add_destination'),
     path('holidays/<int:holiday_id>/destinations/<int:destination_id>/', views.destinations_detail, name='destinations-detail'),
