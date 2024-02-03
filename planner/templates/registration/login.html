@@ -9,5 +9,9 @@
     <input type="hidden" name="next" value="{{ next }}">
     <button type="submit" class="btn">Log In</button>
 </form>
+<div>
+    <p>Not a user? Create an account to start planning your next adventure!</p>
+    <a class="btn" href="{% url 'signup' %}">Sign Up</a>
+</div>
 
 {% endblock %}
