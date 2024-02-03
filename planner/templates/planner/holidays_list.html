@@ -1,16 +1,87 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Holiday List</h1>
+<style>
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    #content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    #banner-welcome {
+        height: 50px;
+        width: 100%;
+        background: grey;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #banner-welcome>div {
+        text-align: center;
+        color: white;
+    }
+
+    .section {
+        width: 400px;
+        border: 1px solid black;
+    }
+
+    .holiday-card {
+        margin: 20px;
+        border: 1px solid grey;
+        padding: 5px;
+    }
+
+    .holiday-details {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .section-header {
+        width: 100%;
+        background: grey;
+        color: white;
+        text-align: center;
+        padding: 5px 0 5px 0;
+        margin-bottom: 10px;
+    }
+
+    .section-footer {
+        width: 100%;
+        background: grey;
+        margin-top: 10px;
+    }
+
+    .section-footer a {
+        color: white;
+        text-decoration: none;
+        text-align: center;
+    }
+</style>
+
+<h1>My Holidays</h1>
 
 {% for holiday in holidays %}
-  <a href="{% url 'holiday-detail' holiday.id %}">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">{{ holiday.name }}</span>
-      </div>
+<a href="{% url 'holiday-detail' holiday.id %}">
+    <div class="holiday-card">
+        <div class="holiday-details">
+            <span>{{ holiday.name }}</span> <span>{{ holiday.start_date }} - {{ holiday.end_date }}</span>
+        </div>
+        <div class="destination-list">
+            {% for destination in holiday.destination_set.all %}
+            <div class="destination">{{ destination.location }}</div>
+            {% endfor %}
+        </div>
     </div>
-  </a>
+</a>
 {% endfor %}
 
 {% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="holiday-detail">
+  <div class="holiday-title">{{ holiday.name }}</div>
+  <div class="holiday-dates">
+    <p>Start Date: {{ holiday.start_date }}</p>
+    <p>End Date: {{ holiday.end_date }}</p>
+  </div>
+      <div class="card-action">
+        {% comment %}
+        <a href="{% url 'holidays_update' holiday.id %}">Edit</a>
+        <a href="{% url 'holidays_delete' holiday.id %}">Delete</a>
+        {% endcomment %}
+      </div>
+   
+
+  <div class="destinations">
+    {% if holiday.destination_set.all.count %}
+    <h2>Destinations</h2>
+      {% for destination in holiday.destination_set.all %}
+      <div class="destination-card">
+          <a href="{% url 'destinations-detail' holiday.id destination.id %}">
+            {{ destination.location }}
+            <p> {{ destination.start_date|date:"N j, Y" }} - {{ destination.end_date|date:"N j, Y" }}
+            </span></p>
+          </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div>
+      <form action="{% url 'add_destination' holiday.id %}" method="POST">
+        {% csrf_token %}
+        {{ destination_form.as_p }}
+        <input type="submit" class="btn" value="Add Destination">
+      </form>
+    </div>
+
+    
+    <style>
+      .holiday-detail {
+        max-width: 800px;
+        margin: auto;
+      }
+      
+      .holiday-title {
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
+      
+      .holiday-dates p {
+        color: #555;
+      }
+      
+      .destination-card {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 10px;
+        
+      }
+      
+      .destination-card a {
+        text-decoration: none;
+        color: black;
+      }
+      
+      .destination-card h3 {
+        margin-top: 0;
+      }
+      </style>
+
+{% endblock %}
