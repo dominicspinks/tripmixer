@@ -37,6 +37,14 @@ class HolidayCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+    
+class HolidayUpdate(UpdateView):
+    model = Holiday
+    fields = '__all__'
+
+class HolidayDelete(DeleteView):
+    model = Holiday
+    success_url = '/holidays'
 
 @login_required
 def holidays_detail(request, pk):
@@ -44,15 +52,15 @@ def holidays_detail(request, pk):
     destination_form = DestinationForm()
     return render(request, 'planner/holidays_detail.html', { 'holiday': holiday,'destination_form': destination_form })
 
-class destination_update(UpdateView):
-  model = Destination
-  fields = '__all__'
+class DestinationUpdate(UpdateView):
+    model = Destination
+    fields = '__all__'
 
-  def get_success_url(self):
+    def get_success_url(self):
         holiday_id = self.object.holiday.id
         return reverse_lazy('holiday-detail', kwargs={'pk': holiday_id})
 
-class destination_delete(DeleteView):
+class DestinationDelete(DeleteView):
     model = Destination
 
     def get_success_url(self):
