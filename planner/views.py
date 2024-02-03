@@ -1,13 +1,13 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect
-=======
-from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-
->>>>>>> main
 from .models import *
 from .destinationform import DestinationForm
+
+
+
 
 # Create your views here.
 def home(request):
@@ -31,6 +31,17 @@ def holidays_detail(request, pk):
     holiday = Holiday.objects.get(id=pk)
     destination_form = DestinationForm()
     return render(request, 'planner/holidays_detail.html', { 'holiday': holiday,'destination_form': destination_form })
+
+# class DestinationUpdate(UpdateView):
+#   model = Destination
+#   fields = '__all__'
+
+class destination_delete(DeleteView):
+    model = Destination
+    
+    def get_success_url(self):
+        holiday_id = self.kwargs['holiday_id']
+        return reverse_lazy('holiday-detail', kwargs={'pk': holiday_id})
 
 @login_required
 def destinations_detail(request, holiday_id, destination_id):

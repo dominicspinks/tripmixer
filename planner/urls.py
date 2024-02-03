@@ -9,6 +9,8 @@ urlpatterns = [
     path('holidays/', views.holidays_list, name='holiday-list'),
     path('holidays/<int:pk>/', views.holidays_detail, name='holiday-detail'),
     path('holidays/<int:holiday_id>/add_destination/',views.add_destination,name='add_destination'),
+    path('holidays/<int:holiday_id>/destinations/<int:pk>/delete/', views.destination_delete.as_view(), name='destination-delete'),
+    # path('destinations/<int:destination_id>/update/', views.destination_update, name='destination-update'),
     path('holidays/<int:holiday_id>/destinations/<int:destination_id>/', views.destinations_detail, name='destinations-detail'),
     path('destinations/<int:destination_id>/itinerary/<int:itinerary_id>/', views.itinerary_detail, name='itinerary-detail'),
 
