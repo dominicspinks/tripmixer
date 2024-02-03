@@ -14,35 +14,15 @@
         gap: 20px;
     }
 
-    #banner-welcome {
-        height: 50px;
-        width: 100%;
-        background: grey;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #banner-welcome>div {
-        text-align: center;
-        color: white;
-    }
-
     .section {
         width: 400px;
         border: 1px solid black;
     }
 
-    .holiday-card {
+    .post-card {
         margin: 20px;
         border: 1px solid grey;
         padding: 5px;
-    }
-
-    .holiday-details {
-        display: flex;
-        justify-content: space-between;
     }
 
     .section-header {
@@ -74,9 +54,11 @@
 </style>
 
 <h1>My Posts</h1>
+<a class="btn" href="{% url 'post-create' %}">New Post</a>
 {% for post in posts %}
-<a href="{% url 'post-detail' post.id %}">
+<a href="{% url 'post-details' post.id %}">
     <div class="post-card">
+        {{ post.title }}
     </div>
 </a>
 {% endfor %}

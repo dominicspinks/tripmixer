@@ -67,7 +67,7 @@
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'planner-dashboard' %}">Dashboard</a></li>
                     <li><a href="{% url 'holiday-list' %}">Holidays</a></li>
-                    <li><a href="{% url 'blog-list' %}">My Blogs</a></li>
+                    <li><a href="{% url 'post-list' %}">My Blogs</a></li>
                     <li>
                         <form class="form-logout" action="{% url 'logout' %}" method="POST">
                             {% csrf_token %}
