@@ -23,7 +23,7 @@
   </div>
   <h2>Itinerary Lists</h2>
   <div>
-  {% if itinerary.count %}
+  {% if destination.itinerary_set.count %}
     {% for itinerary in destination.itinerary_set.all %}
     <div>
       <a href="{% url 'itinerary-detail' destination.id itinerary.id %}">
@@ -33,5 +33,6 @@
   {% else %}
     <div>{{destination.location}} still do not have any itinerary available</div>
   {% endif %}
+    <button><a href="{% url 'itinerary_create' destination.id%}">Create Itinerary</a></button>
   </div>
   {% endblock %}

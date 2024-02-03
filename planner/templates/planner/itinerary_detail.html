@@ -13,10 +13,8 @@
       <div>Description : {{ itinerary.description }}</div>
       </div>
       <div class="card-action">
-        {% comment %}
-        <a href="{% url 'itinerary_update' itinerary.id %}">Edit</a>
-        <a href="{% url 'itinerary_delete' itinerary.id %}">Delete</a>
-        {% endcomment %}
+        <a href="{% url 'itinerary_update' destination.id itinerary.id %}">Edit</a>
+        <a href="{% url 'itinerary_delete' destination.id itinerary.id %}">Delete</a>
       </div>
     </div>
   </div>
