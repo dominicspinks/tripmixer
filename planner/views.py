@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 
+
 # Create your views here.
 def home(request):
     return render(request, 'planner/home.html')
@@ -39,15 +40,20 @@ def holidays_detail(request, pk):
     destination_form = DestinationForm()
     return render(request, 'planner/holidays_detail.html', { 'holiday': holiday,'destination_form': destination_form })
 
-# class DestinationUpdate(UpdateView):
-#   model = Destination
-#   fields = '__all__'
+class destination_update(UpdateView):
+  model = Destination
+  fields = '__all__'
+
+  def get_success_url(self):
+        holiday_id = self.object.holiday.id
+        return reverse_lazy('holiday-detail', kwargs={'pk': holiday_id})
+
 
 class destination_delete(DeleteView):
     model = Destination
     
     def get_success_url(self):
-        holiday_id = self.kwargs['holiday_id']
+        holiday_id = self.object.holiday.id
         return reverse_lazy('holiday-detail', kwargs={'pk': holiday_id})
 
 @login_required

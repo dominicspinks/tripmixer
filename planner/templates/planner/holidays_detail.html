@@ -25,14 +25,25 @@
                 <p> {{ destination.start_date|date:"N j, Y" }} - {{ destination.end_date|date:"N j, Y" }}
                     </span></p>
             </a>
+            <div>
+                <div>
+                    <a
+                        href="{% url 'destination-delete' holiday_id=destination.holiday.id pk=destination.id %}">Delete</a>
+                </div>
+                <div>
+                    <a href="{% url 'destination-update' holiday_id=destination.holiday.id pk=destination.id  %}">
+                        Edit</a>
+                </div>
+            </div>
         </div>
 
-        <a href="{% url 'destination-delete' holiday_id=destination.holiday.id pk=destination.id %}">Delete</a>
+
         {% endfor %}
     </div>
     {% endif %}
 
     <div>
+        <h2>Add New Destination</h2>
         <form action="{% url 'add_destination' holiday.id %}" method="POST">
             {% csrf_token %}
             {{ destination_form.as_p }}
