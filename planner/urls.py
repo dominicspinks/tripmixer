@@ -11,6 +11,7 @@ urlpatterns = [
     # path('holidays/<int:holiday_id>/destinations', views.destinations_list, name='destinations-list'),
     path('holidays/<int:holiday_id>/destinations/<int:destination_id>/', views.destinations_detail, name='destinations-detail'),
     path('destinations/<int:destination_id>/itinerary/<int:itinerary_id>/', views.itinerary_detail, name='itinerary-detail'),
+    path('accounts/signup/', views.signup, name='signup'),
 
 ]
 
