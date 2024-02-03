@@ -90,6 +90,14 @@ class ItinUpdate(UpdateView):
    model = Itinerary
    fields = ['start_date', 'end_date', 'description']
 
+class ItinDelete(DeleteView):
+    model = Itinerary
+
+    def get_success_url(self):
+        destination_id = self.object.destination.id
+        holiday_id = self.object.destination.holiday.id
+        return reverse_lazy('destinations-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
+
 def add_destination(request, holiday_id):
     form = DestinationForm(request.POST)
     if form.is_valid():
