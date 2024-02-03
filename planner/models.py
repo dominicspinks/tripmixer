@@ -20,6 +20,8 @@ class Destination(models.Model):
 
     def __str__(self):
         return self.location
+    class Meta:
+        ordering = ['-start_date']
 
 class Itinerary(models.Model):
     destination = models.ForeignKey(Destination,on_delete=models.CASCADE)
