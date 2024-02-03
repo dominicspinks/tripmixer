@@ -11,7 +11,7 @@
           <div>Start Date : {{ destination.start_date }}</div>
           <div>End Date : {{ destination.end_date }}</div>
           <div>Description : {{ destination.description }}</div>
-          <div>Holiday : {{ destination.holiday }}</div>
+          <div>Holiday : <a href="{% url 'holiday-detail' holiday.id %}">{{ destination.holiday }}</a></div>
       </div>
       <div class="card-action">
         {% comment %}
@@ -23,12 +23,16 @@
   </div>
   <h2>Itinerary Lists</h2>
   <div>
+  {% if itinerary.count %}
     {% for itinerary in destination.itinerary_set.all %}
     <div>
       <a href="{% url 'itinerary-detail' destination.id itinerary.id %}">
       {{ itinerary.description }}</a>
     </div>
     {% endfor %}
+  {% else %}
+    <div>{{destination.location}} still do not have any itinerary available</div>
+  {% endif %}
   </div>
 
   {% endblock %}
