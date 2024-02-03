@@ -20,7 +20,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('post-details', kwargs={'post_id': self.id})
+        return reverse('post-detail', kwargs={'post_id': self.id})
 
 class ImageURL(models.Model):
     # Allowing the post fk to be null to avoid orphaning an image in s3

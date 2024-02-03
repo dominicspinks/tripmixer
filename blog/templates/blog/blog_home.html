@@ -55,7 +55,7 @@
 
 <h1>Welcome</h1>
 {% for post in posts %}
-<a href="{% url 'post-details' post.id %}">
+<a href="{% url 'post-detail' post.id %}">
     <div class="post-card">
         {{ post.title }}
     </div>

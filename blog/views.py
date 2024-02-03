@@ -16,7 +16,7 @@ def post_list(request):
     posts = Post.objects.filter(user=request.user)
     return render(request, 'blog/post_list.html', { 'posts': posts})
 
-def post_details(request, post_id):
+def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     return render(request, 'blog/post_detail.html', { 'post': post })
 
@@ -47,7 +47,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
             post_id = self.object.id
-            return reverse_lazy('post-details', kwargs={'post_id': post_id})
+            return reverse_lazy('post-detail', kwargs={'post_id': post_id})
 
 
 class PostDelete(LoginRequiredMixin, DeleteView):
