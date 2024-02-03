@@ -16,20 +16,27 @@
    
 
   <div class="destinations">
-    <h2>Destinations</h2>
     {% if holiday.destination_set.all.count %}
+    <h2>Destinations</h2>
       {% for destination in holiday.destination_set.all %}
       <div class="destination-card">
           <a href="{% url 'destinations-detail' holiday.id destination.id %}">
             {{ destination.location }}
-              <h2>{{ destination.location }}</h2><span>Date: {{ destination.start_date }} - {{ destination.end_date }}</span>
+            <p> {{ destination.start_date|date:"N j, Y" }} - {{ destination.end_date|date:"N j, Y" }}
+            </span></p>
           </a>
       </div>
       {% endfor %}
     </div>
-    {% else %}
-    <h5>No Destinations Found</h5>
     {% endif %}
+
+    <div>
+      <form action="{% url 'add_destination' holiday.id %}" method="POST">
+        {% csrf_token %}
+        {{ destination_form.as_p }}
+        <input type="submit" class="btn" value="Add Destination">
+      </form>
+    </div>
 
     
     <style>
