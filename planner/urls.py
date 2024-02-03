@@ -3,9 +3,7 @@ from . import views
 
 urlpatterns = [
     path('about/', views.about, name='about'),
-    # Replace the home path with blog feed page
-    path('', views.planner_dashboard, name='home'),
-    path('dashboard/', views.planner_dashboard, name='planner-dashboard'),
+    path('', views.planner_dashboard, name='planner-dashboard'),
     path('holidays/', views.holidays_list, name='holiday-list'),
     path('holidays/new', views.HolidayCreate.as_view(), name='holiday-create'),
     path('holidays/<int:pk>/', views.holidays_detail, name='holiday-detail'),
