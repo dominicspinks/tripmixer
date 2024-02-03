@@ -13,10 +13,7 @@ from django.urls import reverse_lazy
 from django.urls import reverse_lazy
 
 
-# Create your views here.
-def home(request):
-    return render(request, 'planner/home.html')
-
+# Create your views here
 def about(request):
     return render(request, 'about.html')
 
@@ -37,12 +34,14 @@ class HolidayCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-    
-class HolidayUpdate(UpdateView):
+
+
+class HolidayUpdate(LoginRequiredMixin, UpdateView):
     model = Holiday
     fields = '__all__'
 
-class HolidayDelete(DeleteView):
+
+class HolidayDelete(LoginRequiredMixin, DeleteView):
     model = Holiday
     success_url = '/holidays'
 
@@ -52,7 +51,7 @@ def holidays_detail(request, pk):
     destination_form = DestinationForm()
     return render(request, 'planner/holidays_detail.html', { 'holiday': holiday,'destination_form': destination_form })
 
-class DestinationUpdate(UpdateView):
+class DestinationUpdate(LoginRequiredMixin, UpdateView):
     model = Destination
     fields = '__all__'
 
@@ -60,7 +59,7 @@ class DestinationUpdate(UpdateView):
         holiday_id = self.object.holiday.id
         return reverse_lazy('holiday-detail', kwargs={'pk': holiday_id})
 
-class DestinationDelete(DeleteView):
+class DestinationDelete(LoginRequiredMixin, DeleteView):
     model = Destination
 
     def get_success_url(self):
@@ -79,7 +78,7 @@ def itinerary_detail(request, destination_id, itinerary_id):
     destination = Destination.objects.get(id=destination_id)
     return render(request, 'planner/itinerary_detail.html', {'itinerary':itinerary, 'destination': destination})
 
-class ItinCreate(CreateView):
+class ItinCreate(LoginRequiredMixin, CreateView):
     model = Itinerary
     fields = ['start_date', 'end_date', 'description']
 
@@ -94,11 +93,11 @@ class ItinCreate(CreateView):
         holiday_id = self.object.destination.holiday.id
         return reverse_lazy('destinations-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
 
-class ItinUpdate(UpdateView):
+class ItinUpdate(LoginRequiredMixin, UpdateView):
    model = Itinerary
    fields = ['start_date', 'end_date', 'description']
 
-class ItinDelete(DeleteView):
+class ItinDelete(LoginRequiredMixin, DeleteView):
     model = Itinerary
 
     def get_success_url(self):
@@ -106,6 +105,7 @@ class ItinDelete(DeleteView):
         holiday_id = self.object.destination.holiday.id
         return reverse_lazy('destinations-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
 
+@login_required
 def add_destination(request, holiday_id):
     form = DestinationForm(request.POST)
     if form.is_valid():
