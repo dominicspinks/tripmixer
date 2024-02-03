@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Delete Destination</h1>
+<h1>Delete Holiday</h1>
 
 <h4>Are you sure you want to delete {{ object.name }}?</h4>
 
@@ -8,7 +8,7 @@
     {% csrf_token %}
     <input type="submit" value="Yes - Delete!" class="btn">
 
-    <a href="{% url 'holiday-detail' destination.holiday.id %}">Cancel</a>
+    <a href="{% url 'holiday-list' %}">Cancel</a>
 
 </form>
 

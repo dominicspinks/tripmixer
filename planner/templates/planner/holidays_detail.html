@@ -8,10 +8,8 @@
         <p>End Date: {{ holiday.end_date }}</p>
     </div>
     <div class="card-action">
-        {% comment %}
-        <a href="{% url 'holidays_update' holiday.id %}">Edit</a>
-        <a href="{% url 'holidays_delete' holiday.id %}">Delete</a>
-        {% endcomment %}
+        <a href="{% url 'holiday-update' holiday.id %}">Edit</a>
+        <a href="{% url 'holiday-delete' holiday.id %}">Delete</a>
     </div>
 
 
