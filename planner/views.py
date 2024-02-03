@@ -1,9 +1,13 @@
+from typing import Any
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 from .models import *
 from .destinationform import DestinationForm
@@ -50,6 +54,28 @@ def itinerary_detail(request, destination_id, itinerary_id):
     itinerary = Itinerary.objects.get(id=itinerary_id)
     destination = Destination.objects.get(id=destination_id)
     return render(request, 'planner/itinerary_detail.html', {'itinerary':itinerary, 'destination': destination})
+
+class ItinCreate(CreateView):
+    model = Itinerary
+    fields = ['start_date', 'end_date', 'description']
+
+#    def get_context_data(self, **kwargs):
+#     context = super().get_context_data(**kwargs)
+#     print(kwargs.get('destination_id'))
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        destination_id = self.kwargs.get('destination_id')
+        destination = Destination.objects.get(id=destination_id)
+        form.instance.destination = destination
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        destination_id = self.object.destination.id
+        holiday_id = self.object.destination.holiday.id
+        return reverse_lazy('destinations-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
+
+class ItinUpdate(UpdateView):
+   model = Itinerary
+   fields = ['start_date', 'end_date', 'description']
 
 def add_destination(request, holiday_id):
     form = DestinationForm(request.POST)
