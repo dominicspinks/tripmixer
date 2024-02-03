@@ -47,7 +47,8 @@ def destinations_detail(request, holiday_id, destination_id):
 @login_required
 def itinerary_detail(request, destination_id, itinerary_id):
     itinerary = Itinerary.objects.get(id=itinerary_id)
-    return render(request, 'planner/itinerary_detail.html', {'itinerary':itinerary})
+    destination = Destination.objects.get(id=destination_id)
+    return render(request, 'planner/itinerary_detail.html', {'itinerary':itinerary, 'destination': destination})
 
 def add_destination(request, holiday_id):
     form = DestinationForm(request.POST)
