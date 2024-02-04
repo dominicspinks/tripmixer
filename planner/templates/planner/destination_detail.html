@@ -33,6 +33,6 @@
   {% else %}
     <div>{{destination.location}} still do not have any itinerary available</div>
   {% endif %}
-    <a href="{% url 'itinerary_create' destination.id%}">Create Itinerary</a>
+    <button><a href="{% url 'itinerary_create' destination.id%}">Create Itinerary</a></button>
   </div>
   {% endblock %}

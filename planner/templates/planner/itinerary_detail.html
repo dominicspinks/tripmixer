@@ -14,9 +14,7 @@
       </div>
       <div class="card-action">
         <a href="{% url 'itinerary_update' destination.id itinerary.id %}">Edit</a>
-        {% comment %}
-        <a href="{% url 'itinerary_delete' itinerary.id %}">Delete</a>
-        {% endcomment %}
+        <a href="{% url 'itinerary_delete' destination.id itinerary.id %}">Delete</a>
       </div>
     </div>
   </div>

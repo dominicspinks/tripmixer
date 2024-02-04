@@ -12,7 +12,7 @@ class Post(models.Model):
     destination = models.ForeignKey('planner.Destination', null=True, on_delete=models.SET_NULL, default=None)
     itinerary = models.ForeignKey('planner.Itinerary', null=True, on_delete=models.SET_NULL, default=None)
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=1000, blank=True, default='')
+    description = models.TextField(max_length=1000, blank=True, default='')
     create_date = models.DateTimeField()
     is_public = models.BooleanField(default=False)
 
@@ -20,7 +20,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('blog-detail', kwargs={'pk': self.id})
+        return reverse('post-detail', kwargs={'post_id': self.id})
 
 class ImageURL(models.Model):
     # Allowing the post fk to be null to avoid orphaning an image in s3

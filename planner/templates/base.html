@@ -60,14 +60,14 @@
         <nav class="nav">
             <div class="nav-wrapper">
                 <ul>
-                    <li><a href="{% url 'planner-dashboard' %}" class="left brand-logo">&nbsp;&nbsp;TripMixer</a></li>
+                    <li><a href="{% url 'blog-home' %}" class="left brand-logo">&nbsp;&nbsp;TripMixer</a></li>
                 </ul>
                 <ul class="right">
                     <li><a href="{% url 'about' %}">About</a></li>
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'planner-dashboard' %}">Dashboard</a></li>
                     <li><a href="{% url 'holiday-list' %}">Holidays</a></li>
-                    <li><a href="{% url 'blog-list' %}">My Blogs</a></li>
+                    <li><a href="{% url 'post-list' %}">My Blogs</a></li>
                     <li>
                         <form class="form-logout" action="{% url 'logout' %}" method="POST">
                             {% csrf_token %}
