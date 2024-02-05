@@ -1,93 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<style>
-    a {
-        text-decoration: none;
-        color: black;
-    }
-
-    #content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    #banner-welcome {
-        height: 50px;
-        width: 100%;
-        background: grey;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #banner-welcome>div {
-        text-align: center;
-        color: white;
-    }
-
-    .section {
-        width: 400px;
-        border: 1px solid black;
-    }
-
-    .holiday-card {
-        margin: 20px;
-        border: 1px solid grey;
-        padding: 5px;
-    }
-
-    .holiday-details {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .section-header {
-        width: 100%;
-        background: grey;
-        color: white;
-        text-align: center;
-        padding: 5px 0 5px 0;
-        margin-bottom: 10px;
-    }
-
-    .section-footer {
-        width: 100%;
-        background: grey;
-        margin-top: 10px;
-    }
-
-    .section-footer a {
-        color: white;
-        text-decoration: none;
-        text-align: center;
-    }
-
-    .btn {
-        border: 1px solid rgb(80, 80, 80);
-        background: grey;
-        color: white;
-    }
-</style>
-
-<h1>My Holidays</h1>
-<a class="btn" href="{% url 'holiday-create' %}">New Holiday</a>
-{% for holiday in holidays %}
-<a href="{% url 'holiday-detail' holiday.id %}">
-    <div class="holiday-card">
-        <div class="holiday-details">
-            <span>{{ holiday.name }}</span> <span>{{ holiday.start_date }} - {{ holiday.end_date }}</span>
-        </div>
-        <div class="destination-list">
-            {% for destination in holiday.destination_set.all %}
-            <div class="destination">{{ destination.location }}</div>
-            {% endfor %}
+<main class="container mt-5 holiday-list">
+    <h1 class="mb-4 mb-sm-4">My Holidays</h1>
+    <a class="btn btn-custom1 mb-4" href="{% url 'holiday-create' %}">New Holiday</a>
+    {% for holiday in holidays %}
+    <div class="card mb-3 mb-sm-4 holiday-card">
+        <div class="card-body">
+            <a href="{% url 'holiday-detail' holiday.id %}" class="stretched-link"></a>
+            <h5 class="card-title">{{ holiday.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted holiday-card-subtitle">{{ holiday.start_date }} -
+                {{holiday.end_date }}</h6>
+            <p class="card-text">
+                {% for destination in holiday.destination_set.all %}
+                <span style="background-color:#00bf63 !important;"
+                    class="badge bg-secondary">{{destination.location}}</span>
+                {% endfor %}
+            </p>
         </div>
     </div>
-</a>
-{% endfor %}
+    {% endfor %}
+</main>
+
+
 
 {% endblock %}
