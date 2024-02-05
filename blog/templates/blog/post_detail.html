@@ -8,5 +8,10 @@
     <a href="{% url 'post-update' post.id %}">Edit</a>
     <a href="{% url 'post-delete' post.id %}">Delete</a>
 </div>
+<div>
+    {% for i in post.image_set.all %}
+    <img src="{{ i.image.url }}" width="120" />
+    {% endfor %}
+</div>
 
 {% endblock %}

@@ -1,9 +1,14 @@
 from django.db import models
 from django.urls import reverse
 from django.apps import apps
+import uuid
 
 # import planner.models as Planner_Models
 from django.contrib.auth.models import User
+
+# Function to add random string to start of image file names to avoid duplicate names in S3
+def prepend_filename(instance, filename):
+    return f"blog_images/{uuid.uuid4().hex[:8]}-{filename}"
 
 # Create your models here.
 class Post(models.Model):
@@ -22,11 +27,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'post_id': self.id})
 
-class ImageURL(models.Model):
-    # Allowing the post fk to be null to avoid orphaning an image in s3
-    post = models.ForeignKey(Post, null=True, on_delete=models.SET_NULL)
-    image_url = models.URLField(max_length=200)
-    create_date = models.DateTimeField()
+class Image(models.Model):
+    post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=prepend_filename)
 
     def __str__(self):
-        return self.image_url
+        return 'ImageField'
