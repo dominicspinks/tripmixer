@@ -4,6 +4,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from .forms import ImageFormSet
+from django.db import transaction
 
 import datetime
 
@@ -23,7 +25,17 @@ def post_detail(request, post_id):
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = ('title', 'holiday', 'description', 'is_public')
+    # Change this to direct to detail page after creation
+    success_url = reverse_lazy('post_list')
     # Destination and itinery tags to be added later, the destination dropdown will need to filter based on the selected holiday, and the itinerary dropdown will need to filter based on the selected destination
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.POST:
+            context['image_formset'] = ImageFormSet(self.request.POST, self.request.FILES)
+        else:
+            context['image_formset'] = ImageFormSet()
+        return context
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -33,6 +45,17 @@ class PostCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.create_date = datetime.datetime.now()
+
+        with transaction.atomic():
+            self.object = form.save()
+            if image_formset.is_valid():
+                image_formset.instance = self.object
+                image_formset.save()
+
+        context = self.get_context_data()
+        image_formset = context['image_formset']
+
+
         return super().form_valid(form)
 
 class PostUpdate(LoginRequiredMixin, UpdateView):

@@ -128,3 +128,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/planner/'
 
 LOGOUT_REDIRECT_URL = '/'
+
+STORAGES = {
+    'default': {
+        'BACKEND': 'storages.backends.s3.S3Storage'
+    },
+    'staticfiles': {
+      'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+    }
+}
