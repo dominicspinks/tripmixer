@@ -73,9 +73,20 @@ def destinations_detail(request, holiday_id, destination_id):
     return render(request, 'planner/destination_detail.html', {'destination': destination, 'holiday': holiday})
 
 @login_required
+def add_destination(request, holiday_id):
+    form = DestinationForm(request.POST)
+    if form.is_valid():
+        new_destination = form.save(commit=False)
+        new_destination.holiday_id = holiday_id
+        new_destination.save()
+    return redirect('holiday-detail',pk=holiday_id)
+
+@login_required
 def itinerary_detail(request, destination_id, itinerary_id):
     itinerary = Itinerary.objects.get(id=itinerary_id)
     destination = Destination.objects.get(id=destination_id)
+    # if Accommodation.objects.get(id=itinerary_id):
+    #     accommodation = Accommodation.objects.get(id=itinerary_id)
     return render(request, 'planner/itinerary_detail.html', {'itinerary':itinerary, 'destination': destination})
 
 class ItinCreate(LoginRequiredMixin, CreateView):
@@ -105,14 +116,32 @@ class ItinDelete(LoginRequiredMixin, DeleteView):
         holiday_id = self.object.destination.holiday.id
         return reverse_lazy('destinations-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
 
-@login_required
-def add_destination(request, holiday_id):
-    form = DestinationForm(request.POST)
-    if form.is_valid():
-        new_destination = form.save(commit=False)
-        new_destination.holiday_id = holiday_id
-        new_destination.save()
-    return redirect('holiday-detail',pk=holiday_id)
+class AccomCreate(LoginRequiredMixin, CreateView):
+    model = Accommodation
+    fields = ['accom_name', 'accom_type']
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        itinerary_id = self.kwargs.get('itinerary_id')
+        itinerary = Itinerary.objects.get(id=itinerary_id)
+        form.instance.itinerary = itinerary
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        destination_id = self.object.itinerary.destination.id
+        holiday_id = self.object.itinerary.destination.holiday.id
+        return reverse_lazy('destinations-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
+
+class AccomUpdate(LoginRequiredMixin, UpdateView):
+    model = Accommodation
+    fields = ['accom_name', 'accom_type']
+
+class AccomDelete(LoginRequiredMixin, DeleteView):
+    model = Accommodation
+
+    def get_success_url(self):
+        destination_id = self.object.destination.id
+        itinerary_id = self.object.itinerary.id
+        return reverse_lazy('destinations-detail', kwargs={'destination_id': destination_id, 'itinerary_id': itinerary_id})
 
 def signup(request):
   error_message = ''

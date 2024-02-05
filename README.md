@@ -2,9 +2,7 @@
 
 <p align='center'><img src="./img/Logo.jpg" width=300 height=300></p>
 
-# Concentración Juego
-
-### Concentration Game
+# TripMixer
 
 ## :page_facing_up: About
 

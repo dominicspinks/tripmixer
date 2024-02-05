@@ -39,3 +39,20 @@ class Itinerary(models.Model):
 
     def get_absolute_url(self):
         return reverse('itinerary-detail', kwargs={'itinerary_id': self.id, 'destination_id': self.destination.id})
+
+ACCOM_TYPES = (
+    ('Hotels', 'Hotels'),
+    ('Hostel', 'Hostels'),
+    ('Bed and breakfast', 'Bed and breakfast'),
+    ('Guesthouse', 'Guesthouse'),
+    ('Airbnb', 'Airbnb'),
+    ('Apartments', 'Apartments'),
+    ('Resorts', 'Resorts'),
+    ('Camping', 'Camping'),
+    ('Chalets', 'Chalets')
+)
+
+class Accommodation(models.Model):
+    itinerary = models.OneToOneField(Itinerary, on_delete=models.CASCADE)
+    accom_name = models.CharField(max_length=100)
+    accom_type = models.CharField(max_length=20, choices=ACCOM_TYPES, default=ACCOM_TYPES[0][0])
