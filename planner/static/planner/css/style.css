@@ -12,7 +12,7 @@ body {
     vertical-align: middle;
 }
 .navbar-brand .img-fluid {
-    max-height: 10vh; /* Adjust this value as needed */
+    max-height: 10vh;
     width: auto;
 }
 
@@ -36,14 +36,14 @@ body {
     background-color: rgba(255, 255, 255, 0.8);
 }
 .banner-container {
-    height: 30vh; /* 30% of the viewport height */
-    overflow: hidden; /* Ensures no part of the image spills out of the container */
+    height: 30vh;
+    overflow: hidden;
 }
 
 .banner-container img {
-    width: 100%; /* Ensures the image takes full width of the container */
-    height: auto; /* Maintains the aspect ratio */
-    min-height: 100%; /* Ensures the image covers the container height */
+    width: 100%;
+    height: auto;
+    min-height: 100%;
 }
 
 .btn-custom {
@@ -77,4 +77,52 @@ body {
     border-color: #b5b5b5;
     background-color: #e46f44;
     color: white;
+}
+
+.btn-custom1 {
+    text-decoration: none;
+    align-items: center;
+    appearance: none;
+    background-color: #e46f44;
+    color: white;
+    border: 1px solid #dbdbdb;
+    border-radius: 0.375em;
+    box-shadow: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 1rem;
+    height: 2.5em;
+    justify-content: center;
+    line-height: 1.5;
+    padding: calc(0.5em - 1px) 1em;
+    position: relative;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.btn-custom1:hover {
+    border-color: #e46f44;
+    background-color: white;
+    color: #e46f44;
+}
+.holiday-card:hover {
+    border-color: #e46f44;
+    background-color: white;
+    color: #e46f44;
+}
+.holiday-card:hover .holiday-card-subtitle {
+    color: #e9967a;
+}
+/* Custom margin-bottom for small screens */
+@media (max-width: 767.98px) {
+    .mb-sm-4 {
+        margin-bottom: 1.5rem;
+    }
+}
+.bg-secondary {
+    background-color: #00bf63;
 }

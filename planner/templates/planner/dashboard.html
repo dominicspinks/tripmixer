@@ -17,7 +17,7 @@
 
     <div class="row  mt-4">
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card mb-sm-4">
                 <div class="card-header">
                     My Holidays
                 </div>
@@ -27,19 +27,20 @@
                         <h5 class="card-title">{{ holiday.name }}</h5>
                         <p class="card-text small text-muted">{{ holiday.start_date }} - {{ holiday.end_date }}</p>
                         {% for destination in holiday.destination_set.all %}
-                        <span class="badge bg-secondary">{{ destination.location }}</span>
+                        <span style="background-color:#00bf63 !important;" class="badge bg-secondary">
+                            {{ destination.location }}</span>
                         {% endfor %}
                     </li>
                     {% endfor %}
                 </ul>
                 <div class="card-footer d-flex justify-content-center">
-                    <a href="{% url 'holiday-list' %}" class="btn-custom">View my holidays</a>
+                    <a href="{% url 'holiday-list' %}" class="btn-custom1">View my holidays</a>
                 </div>
             </div>
         </div>
 
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card mb-sm-4">
                 <div class="card-header">
                     My Posts
                 </div>
@@ -47,13 +48,13 @@
                     <!-- list of recent blog posts by user -->
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                    <a href="{% url 'holiday-list' %}" class="btn-custom">View my posts</a>
+                    <a href="{% url 'holiday-list' %}" class="btn-custom1">View my posts</a>
                 </div>
             </div>
         </div>
 
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card mb-sm-4">
                 <div class="card-header">
                     Following
                 </div>
@@ -61,7 +62,7 @@
                     <!-- list of recent blog posts by other users -->
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                    <a href="{% url 'holiday-list' %}" class="btn-custom">View all following</a>
+                    <a href="{% url 'holiday-list' %}" class="btn-custom1">View all following</a>
                 </div>
             </div>
         </div>
