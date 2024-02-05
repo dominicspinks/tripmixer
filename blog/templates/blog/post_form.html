@@ -14,11 +14,13 @@
     {% csrf_token %}
     {{ form.as_p }}
 
+    {% if post.image_set %}
     <div>
         {% for i in post.image_set.all %}
         <img src="{{ i.image.url }}" width="120" />
         {% endfor %}
     </div>
+    {% endif %}
 
     {{ image_formset.management_form }}
 
