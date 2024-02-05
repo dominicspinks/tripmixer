@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<!-- <script defer src="{% static 'js/main.js' %}"></script> -->
+<!--  -->
 
 {% if object %}
 <h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
@@ -10,9 +10,16 @@
 <h1>New Post</h1>
 {% endif %}
 
-<form action="" method="POST" enctype="multipart/form-data">
+<form id="add-post-form" action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
+
+    <div>
+        {% for i in post.image_set.all %}
+        <img src="{{ i.image.url }}" width="120" />
+        {% endfor %}
+    </div>
+
     {{ image_formset.management_form }}
 
     {% for formset in image_formset %}
@@ -22,7 +29,7 @@
     {% endfor %}
 
     <p>
-        <button type="button" id="add-image">Add another image</button>
+        <button class="btn" type="button" id="add-image">Add another image</button>
     </p>
     <input type="submit" value="Submit" class="btn">
 </form>

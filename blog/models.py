@@ -24,9 +24,7 @@ class Post(models.Model):
 
 class Image(models.Model):
     post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
-    # image_url = models.URLField(max_length=200)
-    # create_date = models.DateTimeField()
     image = models.ImageField(upload_to='blog_images')
 
     def __str__(self):
-        return self.image
+        return 'ImageField'

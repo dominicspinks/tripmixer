@@ -1,6 +1,6 @@
 (() => {
 	function dynamicThingieImageInputs() {
-		const form = document.querySelector('#add-thingie-form');
+		const form = document.querySelector('#add-post-form');
 
 		if (!form.length) return;
 
