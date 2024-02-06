@@ -24,15 +24,35 @@
   <h2>Itinerary Lists</h2>
   <div>
   {% if destination.itinerary_set.count %}
+  <table>
+  <thead>
+  <tr>
+    <th>Itinerary</th>
+    <th>Accommodation</th>
+    <th>Type</th>
+    <tr>
+  </thead>
+  <tbody>
     {% for itinerary in destination.itinerary_set.all %}
-    <div>
+    <tr>
+      <td>
       <a href="{% url 'itinerary-detail' destination.id itinerary.id %}">
       {{ itinerary.description }}</a>
+      </td>
+      {% if itinerary.accommodation %}
+      <td>{{itinerary.accommodation.accom_name}}</td>
+      <td>{{itinerary.accommodation.accom_type}}</td>
+      {% else %}
+      <a href="{% url 'accom-create' destination.id itinerary.id %}">Add Accommodation</a>
+      {% endif %}
+      </tr>
     </div>
     {% endfor %}
+    </tbody>
+  </table>
   {% else %}
     <div>{{destination.location}} still do not have any itinerary available</div>
   {% endif %}
-    <button><a href="{% url 'itinerary_create' destination.id%}">Create Itinerary</a></button>
+    <button><a class='btn' href="{% url 'itinerary_create' destination.id%}">Create Itinerary</a></button>
   </div>
   {% endblock %}

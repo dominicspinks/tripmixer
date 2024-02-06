@@ -11,6 +11,10 @@
       <div>Start Date : {{ itinerary.start_date }}</div>
       <div>End Date : {{ itinerary.end_date }}</div>
       <div>Description : {{ itinerary.description }}</div>
+      {% if itinerary.accommodation %}
+      <div>Accommodation Name : {{ itinerary.accommodation.accom_name}}</div>
+      <div>Accommodation Type : {{ itinerary.accommodation.accom_type}}</div>
+      {% endif %}
       </div>
       <div class="card-action">
         <a href="{% url 'itinerary_update' destination.id itinerary.id %}">Edit</a>
