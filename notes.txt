@@ -1,20 +1,12 @@
 Todo:
-Routing
-planner
--
-planner/holidays
--
-planner/destinations
-planner/holidays/<id>/destinations/<id>/itinery
-planner/itinery/add
-planner/itinery/<id>
-planner/itinery/<id>/edit
-planner/itinery/<id>/update
-planner/itinery/<id>/delete
-
-blog/
-blog/add
-blog/<id>
+Add posts to dashboard
+Add cancel buttons to create and update pages
 
 
-holidays/
+Blogs:
+- Add images and description to home
+- Add description to "my blogs"
+- Complete styling on blog pages
+
+
+Deploy

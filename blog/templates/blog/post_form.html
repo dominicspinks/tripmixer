@@ -1,39 +1,42 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
-<!--  -->
 
 {% if object %}
 <h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
 {% else %}
 <h1>New Post</h1>
 {% endif %}
+<div class="container">
+    <form id="add-post-form" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
 
-<form id="add-post-form" action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
+        {% if post.image_set %}
+        <div>
+            {% for i in post.image_set.all %}
+            <img src="{{ i.image.url }}" width="120" />
+            {% endfor %}
+        </div>
+        {% endif %}
 
-    {% if post.image_set %}
-    <div>
-        {% for i in post.image_set.all %}
-        <img src="{{ i.image.url }}" width="120" />
+        {{ image_formset.management_form|crispy }}
+
+        {% for formset in image_formset %}
+        <div class="image-formset">
+            {{ formset|crispy }}
+        </div>
         {% endfor %}
-    </div>
-    {% endif %}
 
-    {{ image_formset.management_form }}
-
-    {% for formset in image_formset %}
-    <div class="image-formset">
-        {{ formset }}
-    </div>
-    {% endfor %}
-
-    <p>
-        <button class="btn" type="button" id="add-image">Add another image</button>
-    </p>
-    <input type="submit" value="Submit" class="btn">
-</form>
-
+        <p>
+            <button class="btn btn-sm btn-custom" type="button" id="add-image">Add another image</button>
+        </p>
+        <div>
+            <a class="btn btn-sm btn-custom" href="{% url 'post-list' %}">Cancel</a>
+            <input type="submit" value="Submit" class="btn btn-sm btn-custom">
+        </div>
+    </form>
+</div>
 {% endblock %}
