@@ -4,9 +4,10 @@
 <div>{{ post.title }}</div>
 <div>{{ post.description|linebreaks }}</div>
 <div class="card-action">
-    <!-- To be protected against public users -->
-    <a href="{% url 'post-update' post.id %}">Edit</a>
-    <a href="{% url 'post-delete' post.id %}">Delete</a>
+    {% if user.is_authenticated %}
+    <a class="btn btn-sm btn-custom" href="{% url 'post-update' post.id %}">Edit</a>
+    <a class="btn btn-sm btn-custom" href="{% url 'post-delete' post.id %}">Delete</a>
+    {% endif %}
 </div>
 <div>
     {% for i in post.image_set.all %}
