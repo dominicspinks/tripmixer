@@ -1,7 +1,12 @@
 Todo:
 Add posts to dashboard
 Add cancel buttons to create and update pages
+- Add itinerary*
+- Edit Destination
 
+Move Add Itinerary into a popup window instead of new page
+
+Remove user from Edit Holiday page
 
 Blogs:
 - Add images and description to home
@@ -9,4 +14,26 @@ Blogs:
 - Complete styling on blog pages
 
 
-Deploy
+
+Add/Update styling
+- Log in pages
+- Sign up page
+- Delete posts
+- Destination Detail page
+- Itinerary Detail page
+- Add/Edit itinerary
+    - Also make page title dynamic (Edit Itinerary instead of Add Itinerary)
+
+
+
+
+Add dynamic webpage/tab title
+
+Add itinerary items to destination cards of holiday details page
+
+Readme
+
+Clean up code, add comments where applicable
+
+
+Deploy (push latest changes)

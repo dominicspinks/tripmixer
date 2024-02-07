@@ -3,7 +3,7 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import *
-from .destinationform import DestinationForm
+from .forms import DestinationForm, ItineraryForm
 from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
@@ -70,7 +70,8 @@ class DestinationDelete(LoginRequiredMixin, DeleteView):
 def destinations_detail(request, holiday_id, destination_id):
     destination = Destination.objects.get(id=destination_id)
     holiday = Holiday.objects.get(id=holiday_id)
-    return render(request, 'planner/destination_detail.html', {'destination': destination, 'holiday': holiday})
+    itinerary_form = ItineraryForm()
+    return render(request, 'planner/destination_detail.html', {'destination': destination, 'holiday': holiday, 'itinerary_form': itinerary_form})
 
 @login_required
 def add_destination(request, holiday_id):
@@ -105,8 +106,14 @@ class ItinCreate(LoginRequiredMixin, CreateView):
         return reverse_lazy('destinations-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
 
 class ItinUpdate(LoginRequiredMixin, UpdateView):
-   model = Itinerary
-   fields = ['start_date', 'end_date', 'description']
+    model = Itinerary
+    fields = ['start_date', 'end_date', 'description']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['itinerary_form'] = ItineraryForm
+
+        return context
 
 class ItinDelete(LoginRequiredMixin, DeleteView):
     model = Itinerary
