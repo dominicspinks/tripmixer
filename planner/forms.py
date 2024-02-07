@@ -1,15 +1,33 @@
 from django.forms import ModelForm
-from .models import Destination, Itinerary
-from django.forms import DateInput
-from bootstrap_datepicker_plus.widgets import DateTimePickerInput
+from .models import Holiday, Destination, Itinerary
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput, DatePickerInput
 
 class DestinationForm(ModelForm):
     class Meta:
         model = Destination
         fields = ['location','start_date','end_date','description']
         widgets = {
-            'start_date': DateInput(attrs={'type': 'date'}),
-            'end_date': DateInput(attrs={'type': 'date'}),
+            'start_date': DatePickerInput(
+                attrs={
+                    "class": "my-exclusive-input"
+                    },
+                options = {
+                    'format': 'DD MMM YYYY'
+                }
+                ),
+            'end_date': DatePickerInput(
+                attrs={
+                    "class": "my-exclusive-input"
+                    },
+                options = {
+                    'format': 'DD MMM YYYY',
+                },
+                range_from='start_date'
+                ),
+        }
+        labels = {
+            'start_date': 'Start Date',
+            'end_date': 'End Date'
         }
 
 class ItineraryForm(ModelForm):
@@ -27,10 +45,39 @@ class ItineraryForm(ModelForm):
                 attrs={"class": "my-exclusive-input"},
                 options = {
                     'format': 'DD MMM YYYY, hh:mm A'
-                }
+                },
+                range_from='start_date'
             ),
         }
         labels = {
-            'start_date': 'Starting Date & Time',
-            'end_date': 'Ending Date & Time',
+            'start_date': 'Start Date & Time',
+            'end_date': 'End Date & Time',
+        }
+
+class HolidayForm(ModelForm):
+    class Meta:
+        model = Holiday
+        fields = ['name','start_date','end_date']
+        widgets = {
+            'start_date': DatePickerInput(
+                attrs={
+                    "class": "my-exclusive-input"
+                    },
+                options = {
+                    'format': 'DD MMM YYYY'
+                }
+                ),
+            'end_date': DatePickerInput(
+                attrs={
+                    "class": "my-exclusive-input"
+                    },
+                options = {
+                    'format': 'DD MMM YYYY'
+                },
+                range_from='start_date'
+                ),
+        }
+        labels = {
+            'start_date': 'Start Date',
+            'end_date': 'End Date'
         }
