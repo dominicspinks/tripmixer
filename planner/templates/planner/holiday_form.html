@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
+<style>
+    main {
+        margin: 3rem;
+    }
+</style>
+<main>
+    {% if object %}
+    <h2>Edit <span class="teal-text">{{ object.name }}</span></h2>
+    <br>
+    {% else %}
+    <h2>New Holiday</h2>
+    <br>
+    {% endif %}
 
-{% if object %}
-<h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
-{% else %}
-<h1>New Holiday</h1>
-{% endif %}
-
-<form action="" method="POST">
-    {% csrf_token %}
-    <table>
-        {{ form.as_p }}
-    </table>
-    <input type="submit" value="Submit" class="btn">
-</form>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form|crispy }}
+        </table>
+        <input type="submit" value="Submit" class="btn-custom1">
+    </form>
+</main>
 
 {% endblock %}
