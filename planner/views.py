@@ -9,6 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
+from blog.models import Post
 from django.urls import reverse_lazy
 from django.urls import reverse_lazy
 
@@ -20,7 +21,8 @@ def about(request):
 @login_required
 def planner_dashboard(request):
     holidays = Holiday.objects.filter(user=request.user).order_by('-start_date')[:3]
-    return render(request, 'planner/dashboard.html', { 'holidays': holidays })
+    posts = Post.objects.filter(user=request.user).order_by('-create_date')  
+    return render(request, 'planner/dashboard.html', { 'holidays': holidays, 'posts': posts })
 
 @login_required
 def holidays_list(request):

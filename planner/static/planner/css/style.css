@@ -132,3 +132,12 @@ body {
     width: auto;
     margin: auto;
 }
+.card-custom {
+    font-size: 1.25rem;
+    text-decoration: none;
+    font-family: 'Montserrat';
+    font-weight: bold;
+}
+.card-custom a {
+    text-decoration: none;
+}
