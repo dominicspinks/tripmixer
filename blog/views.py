@@ -14,10 +14,12 @@ def blog_home(request):
     posts = Post.objects.filter(is_public=True)
     return render(request, 'blog/blog_home.html', { 'posts': posts})
 
+@login_required
 def post_list(request):
     posts = Post.objects.filter(user=request.user)
     return render(request, 'blog/post_list.html', { 'posts': posts})
 
+@login_required
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     return render(request, 'blog/post_detail.html', { 'post': post })
@@ -96,7 +98,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 
 class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
-    # Add handling of deleting imageurl table rows
+    # Add handling of deleting images from S3
 
     def get_success_url(self):
         return reverse_lazy('post-list')

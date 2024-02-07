@@ -1,58 +1,85 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 
 <h1>Destination Details</h1>
 
 <div class="row">
-  <div class="col s6">
-    <div class="card">
-      <div class="card-content">
-          <div>Location : {{ destination.location }}</div>
-          <div>Start Date : {{ destination.start_date }}</div>
-          <div>End Date : {{ destination.end_date }}</div>
-          <div>Description : {{ destination.description }}</div>
-          <div>Holiday : <a href="{% url 'holiday-detail' holiday.id %}">{{ destination.holiday }}</a></div>
-      </div>
-      <div class="card-action">
-        {% comment %}
-        <a href="{% url 'destinations_update' destination.id %}">Edit</a>
-        <a href="{% url 'destinations_delete' destination.id %}">Delete</a>
-        {% endcomment %}
-      </div>
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+                <div>Location : {{ destination.location }}</div>
+                <div>Start Date : {{ destination.start_date }}</div>
+                <div>End Date : {{ destination.end_date }}</div>
+                <div>Description : {{ destination.description }}</div>
+                <div>Holiday : <a href="{% url 'holiday-detail' holiday.id %}">{{ destination.holiday }}</a></div>
+            </div>
+            <div class="card-action">
+                {% comment %}
+                <a href="{% url 'destinations_update' destination.id %}">Edit</a>
+                <a href="{% url 'destinations_delete' destination.id %}">Delete</a>
+                {% endcomment %}
+            </div>
+        </div>
     </div>
-  </div>
-  <h2>Itinerary Lists</h2>
-  <div>
-  {% if destination.itinerary_set.count %}
-  <table>
-  <thead>
-  <tr>
-    <th>Itinerary</th>
-    <th>Accommodation</th>
-    <th>Type</th>
-    <tr>
-  </thead>
-  <tbody>
-    {% for itinerary in destination.itinerary_set.all %}
-    <tr>
-      <td>
-      <a href="{% url 'itinerary-detail' destination.id itinerary.id %}">
-      {{ itinerary.description }}</a>
-      </td>
-      {% if itinerary.accommodation %}
-      <td>{{itinerary.accommodation.accom_name}}</td>
-      <td>{{itinerary.accommodation.accom_type}}</td>
-      {% else %}
-      <a href="{% url 'accom-create' destination.id itinerary.id %}">Add Accommodation</a>
-      {% endif %}
-      </tr>
+    <h2>Itinerary Lists</h2>
+    <div>
+        {% if destination.itinerary_set.count %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Itinerary</th>
+                    <th>Accommodation</th>
+                    <th>Type</th>
+                <tr>
+            </thead>
+            <tbody>
+                {% for itinerary in destination.itinerary_set.all %}
+                <tr>
+                    <td>
+                        <a href="{% url 'itinerary-detail' destination.id itinerary.id %}">
+                            {{ itinerary.description }}</a>
+                    </td>
+                    {% if itinerary.accommodation %}
+                    <td>{{itinerary.accommodation.accom_name}}</td>
+                    <td>{{itinerary.accommodation.accom_type}}</td>
+                    {% else %}
+                    <a href="{% url 'accom-create' destination.id itinerary.id %}">Add Accommodation</a>
+                    {% endif %}
+                </tr>
     </div>
     {% endfor %}
     </tbody>
-  </table>
-  {% else %}
+    </table>
+    {% else %}
     <div>{{destination.location}} still do not have any itinerary available</div>
-  {% endif %}
-    <button><a class='btn' href="{% url 'itinerary_create' destination.id%}">Create Itinerary</a></button>
-  </div>
-  {% endblock %}
+    {% endif %}
+    <!-- <button><a class='btn' href="{% url 'itinerary_create' destination.id%}">Create Itinerary</a></button> -->
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-custom1" data-bs-toggle="modal" data-bs-target="#addItineraryModal">
+        Add New Itinerary
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addItineraryModal" tabindex="-1" aria-labelledby="addItineraryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addItineraryModalLabel">New Itinerary</h5>
+                    <button type="button" class="btn-custom" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                    {{ itinerary_form.media }}
+                    <form action="{% url 'itinerary_create' destination.id %}" method="POST">
+                        {% csrf_token %}
+                        {{ itinerary_form|crispy }}
+                        <input type="submit" class="btn btn-custom" value="Add Itinerary">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
