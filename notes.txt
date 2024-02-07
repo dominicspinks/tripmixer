@@ -4,13 +4,12 @@ Add cancel buttons to create and update pages
 
 
 Add/Update styling - Dom
-- Log in pages
-- Sign up page
-- Delete posts
+- Log in pages - Done
+- Sign up page - Done
+- Delete posts - Done
 - Destination Detail page
 - Itinerary Detail page
-- Add/Edit itinerary
-    - Also make page title dynamic (Edit Itinerary instead of Add Itinerary)
+- Edit itinerary
 
 
 Blog: - Poom
