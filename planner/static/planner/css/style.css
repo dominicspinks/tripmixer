@@ -2,7 +2,7 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 .navbar {
-    background-color: #e46f44;
+    background-color: #127ac5;
     padding-top: 0;
     padding-bottom: 0;
 }
@@ -22,7 +22,7 @@ body {
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
-    color: #e9967a;
+    color: #276a9a;
 }
 .about-page {
     background: url('https://images.pexels.com/photos/4321950/pexels-photo-4321950.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')
@@ -75,7 +75,7 @@ body {
 
 .btn-custom:hover {
     border-color: #b5b5b5;
-    background-color: #e46f44;
+    background-color: #127ac5;
     color: white;
 }
 
@@ -83,7 +83,7 @@ body {
     text-decoration: none;
     align-items: center;
     appearance: none;
-    background-color: #e46f44;
+    background-color: #127ac5;
     color: white;
     border: 1px solid #dbdbdb;
     border-radius: 0.375em;
@@ -105,17 +105,17 @@ body {
     white-space: nowrap;
 }
 .btn-custom1:hover {
-    border-color: #e46f44;
+    border-color: #127ac5;
     background-color: white;
-    color: #e46f44;
+    color: #127ac5;
 }
 .holiday-card:hover {
-    border-color: #e46f44;
+    border-color: #127ac5;
     background-color: white;
-    color: #e46f44;
+    color: #127ac5;
 }
 .holiday-card:hover .holiday-card-subtitle {
-    color: #e9967a;
+    color: #127ac5;
 }
 /* Custom margin-bottom for small screens */
 @media (max-width: 767.98px) {
@@ -124,5 +124,11 @@ body {
     }
 }
 .bg-secondary {
-    background-color: #00bf63;
+    background-color: #127ac5;
+}
+.carousel-item img {
+    max-height: 400px;
+    object-fit: cover;
+    width: auto;
+    margin: auto;
 }
