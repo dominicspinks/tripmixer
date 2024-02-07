@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% load static %}
 {% block content %}
 
 <div class="container">
@@ -39,13 +38,39 @@
       <a class='btn btn-custom1' href="{% url 'accom-create' destination.id itinerary.id %}">Add Accommodation</a>
       {% endif %}
       </tr>
+
     </div>
     {% endfor %}
     </tbody>
-  </table>
-  {% else %}
+    </table>
+    {% else %}
     <div>{{destination.location}} still do not have any itinerary available</div>
-  {% endif %}
-    <a class='btn btn-custom1 mt-3' href="{% url 'itinerary_create' destination.id%}">Create Itinerary</a>
-  </div>
-  {% endblock %}
+    {% endif %}
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-custom1" data-bs-toggle="modal" data-bs-target="#addItineraryModal">
+        Add New Itinerary
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addItineraryModal" tabindex="-1" aria-labelledby="addItineraryModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addItineraryModalLabel">New Itinerary</h5>
+                    <button type="button" class="btn-custom" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                    {{ itinerary_form.media }}
+                    <form action="{% url 'itinerary_create' destination.id %}" method="POST">
+                        {% csrf_token %}
+                        {{ itinerary_form|crispy }}
+                        <input type="submit" class="btn btn-custom" value="Add Itinerary">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

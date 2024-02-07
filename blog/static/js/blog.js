@@ -1,5 +1,5 @@
 (() => {
-	function dynamicThingieImageInputs() {
+	function dynamicPostImageInputs() {
 		const form = document.querySelector('#add-post-form');
 
 		if (!form.length) return;
@@ -34,5 +34,5 @@
 		});
 	}
 
-	dynamicThingieImageInputs();
+	dynamicPostImageInputs();
 })();
