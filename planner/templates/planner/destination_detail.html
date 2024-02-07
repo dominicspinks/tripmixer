@@ -1,30 +1,23 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
 
-<h1>Destination Details</h1>
-
-<div class="row">
-  <div class="col s6">
-    <div class="card">
-      <div class="card-content">
+<div class="container">
+    <h1 class="title mt-5 mb-3">Destination {{destination.location}}</h1>
+    <div class="card mb-3">
+      <div class="card-body">
+          <div class="h4"> Holiday : <a href="{% url 'holiday-detail' holiday.id %}">{{ destination.holiday }}</a></div>
           <div>Location : {{ destination.location }}</div>
           <div>Start Date : {{ destination.start_date }}</div>
           <div>End Date : {{ destination.end_date }}</div>
           <div>Description : {{ destination.description }}</div>
-          <div>Holiday : <a href="{% url 'holiday-detail' holiday.id %}">{{ destination.holiday }}</a></div>
-      </div>
-      <div class="card-action">
-        {% comment %}
-        <a href="{% url 'destinations_update' destination.id %}">Edit</a>
-        <a href="{% url 'destinations_delete' destination.id %}">Delete</a>
-        {% endcomment %}
       </div>
     </div>
-  </div>
-  <h2>Itinerary Lists</h2>
+  <div class="h1">Itinerary Lists</div>
   <div>
   {% if destination.itinerary_set.count %}
-  <table>
+  <table class="table mt-3">
   <thead>
   <tr>
     <th>Itinerary</th>
@@ -43,7 +36,7 @@
       <td>{{itinerary.accommodation.accom_name}}</td>
       <td>{{itinerary.accommodation.accom_type}}</td>
       {% else %}
-      <a href="{% url 'accom-create' destination.id itinerary.id %}">Add Accommodation</a>
+      <a class='btn btn-custom1' href="{% url 'accom-create' destination.id itinerary.id %}">Add Accommodation</a>
       {% endif %}
       </tr>
     </div>
@@ -53,6 +46,6 @@
   {% else %}
     <div>{{destination.location}} still do not have any itinerary available</div>
   {% endif %}
-    <button><a class='btn' href="{% url 'itinerary_create' destination.id%}">Create Itinerary</a></button>
+    <a class='btn btn-custom1 mt-3' href="{% url 'itinerary_create' destination.id%}">Create Itinerary</a>
   </div>
   {% endblock %}
