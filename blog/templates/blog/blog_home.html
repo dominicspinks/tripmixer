@@ -1,65 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<style>
-    a {
-        text-decoration: none;
-        color: black;
-    }
-
-    #content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .section {
-        width: 400px;
-        border: 1px solid black;
-    }
-
-    .post-card {
-        margin: 20px;
-        border: 1px solid grey;
-        padding: 5px;
-    }
-
-    .section-header {
-        width: 100%;
-        background: grey;
-        color: white;
-        text-align: center;
-        padding: 5px 0 5px 0;
-        margin-bottom: 10px;
-    }
-
-    .section-footer {
-        width: 100%;
-        background: grey;
-        margin-top: 10px;
-    }
-
-    .section-footer a {
-        color: white;
-        text-decoration: none;
-        text-align: center;
-    }
-
-    .btn {
-        border: 1px solid rgb(80, 80, 80);
-        background: grey;
-        color: white;
-    }
-</style>
-
-<h1>Welcome</h1>
-{% for post in posts %}
-<a href="{% url 'post-detail' post.id %}">
-    <div class="post-card">
-        {{ post.title }}
+<div class="container mt-5">
+    <h1>Welcome!</h1>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-6"> <!-- Adjust column size here -->
+            <div class="card mb-4">
+                <!-- Carousel for post images -->
+                <div id="carouselPost{{ post.id }}" class="carousel slide" data-bs-interval="false">
+                    <div class="carousel-inner">
+                        {% for image in post.image_set.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ image.image.url }}" class="d-block w-100" alt="{{ post.title }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPost{{ post.id }}"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselPost{{ post.id }}"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <!-- Post title and description snippet -->
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.description|truncatewords:20 }}...</p>
+                    <a href="{% url 'post-detail' post.id %}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-</a>
-{% endfor %}
+</div>
+
+
+
 
 {% endblock %}
