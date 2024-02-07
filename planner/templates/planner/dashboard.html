@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block title %}Dashboard | TripMixer{% endblock %}
+
 {% block content %}
 
 <div class="banner-container">
@@ -22,6 +25,7 @@
                 <ul class="list-group list-group-flush">
                     {% for holiday in holidays %}
                     <li class="list-group-item">
+                        <a class="stretched-link" href="{% url 'holiday-detail'  holiday.id %}"></a>
                         <h5 class="card-title">{{ holiday.name }}</h5>
                         <p class="card-text small text-muted">{{ holiday.start_date }} - {{ holiday.end_date }}</p>
                         {% for destination in holiday.destination_set.all %}
