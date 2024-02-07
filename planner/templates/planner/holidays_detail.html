@@ -50,6 +50,7 @@
                     <button type="button" class="btn-custom" data-bs-dismiss="modal" aria-label="Close">X</button>
                 </div>
                 <div class="modal-body">
+                    {{ destination_form.media }}
                     <form action="{% url 'add_destination' holiday.id %}" method="POST">
                         {% csrf_token %}
                         {{ destination_form|crispy }}

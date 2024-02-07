@@ -3,7 +3,7 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import DestinationForm, ItineraryForm
+from .forms import HolidayForm, DestinationForm, ItineraryForm
 from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
@@ -21,13 +21,14 @@ def about(request):
 @login_required
 def planner_dashboard(request):
     holidays = Holiday.objects.filter(user=request.user).order_by('-start_date')[:3]
-    posts = Post.objects.filter(user=request.user).order_by('-create_date')  
+    posts = Post.objects.filter(user=request.user).order_by('-create_date')
     return render(request, 'planner/dashboard.html', { 'holidays': holidays, 'posts': posts })
 
 @login_required
 def holidays_list(request):
     holidays = Holiday.objects.filter(user=request.user)
-    return render(request, 'planner/holidays_list.html', { 'holidays': holidays})
+    holiday_form = HolidayForm()
+    return render(request, 'planner/holidays_list.html', { 'holidays': holidays, 'holiday_form': holiday_form })
 
 class HolidayCreate(LoginRequiredMixin, CreateView):
     model = Holiday

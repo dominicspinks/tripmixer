@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 
-<main class="container mt-5 holiday-list">
+<div class="container mt-5 holiday-list">
     <h1 class="mb-4 mb-sm-4">My Holidays</h1>
-    <a class="btn btn-custom1 mb-4" href="{% url 'holiday-create' %}">New Holiday</a>
+    <button type="button" class="btn btn-custom1 mb-2" data-bs-toggle="modal" data-bs-target="#addHolidayModal">New
+        Holiday</button>
     {% for holiday in holidays %}
     <div class="card mb-3 mb-sm-4 holiday-card">
         <div class="card-body">
@@ -20,8 +22,28 @@
         </div>
     </div>
     {% endfor %}
-</main>
 
+    <!-- Modal -->
+    <div class="modal fade" id="addHolidayModal" tabindex="-1" aria-labelledby="addHolidayModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addHolidayModalLabel">New Holiday</h5>
+                    <button type="button" class="btn-custom" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                    {{ holiday_form.media }}
+                    <form action="{% url 'holiday-create' %}" method="POST">
+                        {% csrf_token %}
+                        {{ holiday_form|crispy }}
+                        <input type="submit" class="btn btn-custom" value="Save">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+</div>
 
 {% endblock %}
