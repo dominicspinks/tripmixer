@@ -1,50 +1,58 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+
+{% block title %}Destination Details | TripMixer{% endblock %}
+
 {% block content %}
 
 <div class="container">
-    <h1 class="title mt-5 mb-3">Destination {{destination.location}}</h1>
-    <div class="card mb-3">
-      <div class="card-body">
-          <div class="h4"> Holiday : <a href="{% url 'holiday-detail' holiday.id %}">{{ destination.holiday }}</a></div>
-          <div>Location : {{ destination.location }}</div>
-          <div>Start Date : {{ destination.start_date }}</div>
-          <div>End Date : {{ destination.end_date }}</div>
-          <div>Description : {{ destination.description }}</div>
-      </div>
+    <div class="d-flex justify-content-between align-items-end flex-wrap mt-5 mb-3">
+        <h1 class="title flex-shrink-0">Destination {{destination.location}}</h1>
+        <h4 class="flex-shrink-0"> Holiday : <a
+                href="{% url 'holiday-detail' holiday.id %}">{{ destination.holiday }}</a>
+        </h4>
     </div>
-  <div class="h1">Itinerary Lists</div>
-  <div>
-  {% if destination.itinerary_set.count %}
-  <table class="table mt-3">
-  <thead>
-  <tr>
-    <th>Itinerary</th>
-    <th>Accommodation</th>
-    <th>Type</th>
-    <tr>
-  </thead>
-  <tbody>
-    {% for itinerary in destination.itinerary_set.all %}
-    <tr>
-      <td>
-      <a href="{% url 'itinerary-detail' destination.id itinerary.id %}">
-      {{ itinerary.description }}</a>
-      </td>
-      {% if itinerary.accommodation %}
-      <td>{{itinerary.accommodation.accom_name}}</td>
-      <td>{{itinerary.accommodation.accom_type}}</td>
-      {% else %}
-      <a class='btn btn-custom1' href="{% url 'accom-create' destination.id itinerary.id %}">Add Accommodation</a>
-      {% endif %}
-      </tr>
+    <h5>{{ destination.start_date|date:"j N, Y" }} to {{ destination.end_date|date:"j N, Y" }}</h5>
+    {% if destination.description %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <div>{{ destination.description|linebreaks }}</div>
+        </div>
+    </div>
+    {% endif %}
+    <h3 class="mt-4">Itinerary List</h3>
+    <div>
+        {% if destination.itinerary_set.count %}
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Itinerary</th>
+                    <th>Accommodation</th>
+                    <th>Type</th>
+                <tr>
+            </thead>
+            <tbody>
+                {% for itinerary in destination.itinerary_set.all %}
+                <tr>
+                    <td>
+                        <a href="{% url 'itinerary-detail' destination.id itinerary.id %}">
+                            {{ itinerary.description }}</a>
+                    </td>
+                    {% if itinerary.accommodation %}
+                    <td>{{itinerary.accommodation.accom_name}}</td>
+                    <td>{{itinerary.accommodation.accom_type}}</td>
+                    {% else %}
+                    <a class='btn btn-custom1' href="{% url 'accom-create' destination.id itinerary.id %}">Add
+                        Accommodation</a>
+                    {% endif %}
+                </tr>
 
     </div>
     {% endfor %}
     </tbody>
     </table>
     {% else %}
-    <div>{{destination.location}} still do not have any itinerary available</div>
+    <div>Press the button below to start adding items to your itinerary!</div>
     {% endif %}
 
     <!-- Button trigger modal -->

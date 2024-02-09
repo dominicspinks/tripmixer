@@ -1,4 +1,9 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Itinerary Details | TripMixer{% endblock %}
+
+{% block content %}
 
 <div class="container">
     <h1 class="title mt-5 mb-3">Itinerary Details</h1>
@@ -8,9 +13,7 @@
                 <div class="h4">
                     Destination :
                     <a
-                        href="{% url 'destinations-detail' destination.holiday.id destination.id %}"
-                        >{{ itinerary.destination }}</a
-                    >
+                        href="{% url 'destinations-detail' destination.holiday.id destination.id %}">{{ itinerary.destination }}</a>
                 </div>
                 <div>Start Date : {{ itinerary.start_date }}</div>
                 <div>End Date : {{ itinerary.end_date }}</div>
@@ -23,19 +26,13 @@
                     Accommodation Type : {{ itinerary.accommodation.accom_type}}
                 </div>
                 {% endif %}
-                <a
-                    class="btn btn-sm btn-custom"
-                    href="{% url 'itinerary_update' destination.id itinerary.id %}"
-                    >Edit</a
-                >
-                <a
-                    class="btn btn-sm btn-custom"
-                    href="{% url 'itinerary_delete' destination.id itinerary.id %}"
-                    >Delete</a
-                >
+                <a class="btn btn-sm btn-custom"
+                    href="{% url 'itinerary_update' destination.id itinerary.id %}">Edit</a>
+                <a class="btn btn-sm btn-custom"
+                    href="{% url 'itinerary_delete' destination.id itinerary.id %}">Delete</a>
             </div>
         </div>
     </div>
-
-    {% endblock %}
 </div>
+
+{% endblock %}
