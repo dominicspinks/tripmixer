@@ -12,6 +12,8 @@ from django.contrib.auth.forms import UserCreationForm
 from blog.models import Post
 from django.urls import reverse_lazy
 from django.urls import reverse_lazy
+from django.http import Http404
+
 
 
 # Create your views here
@@ -41,9 +43,8 @@ class HolidayCreate(LoginRequiredMixin, CreateView):
 
 class HolidayUpdate(LoginRequiredMixin, UpdateView):
     model = Holiday
-    fields = '__all__'
-
-
+    fields = ['name', 'start_date', 'end_date']
+   
 class HolidayDelete(LoginRequiredMixin, DeleteView):
     model = Holiday
     success_url = '/holidays'
