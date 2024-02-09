@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
+{% block title %}{% if object %}Edit Post | TripMixer{% else %}New | TripMixer{% endif %}{% endblock %}
+
 {% block content %}
 
 <div class="container mt-5">
