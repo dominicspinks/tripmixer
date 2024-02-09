@@ -48,7 +48,8 @@
                 <ul class="list-group list-group-flush">
                     {% for post in posts %}
                     <li class="list-group-item">
-                        <a href="{{ post.get_absolute_url }}" class="card-title card-custom">{{ post.title }}</a>
+                        <a class="stretched-link" href="{{ post.get_absolute_url }}"></a>
+                        <h5>{{ post.title }}</h5>
                         <p class="card-text small text-muted">{{ post.create_date }}</p>
                     </li>
                     {% endfor %}
