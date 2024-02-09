@@ -32,7 +32,7 @@ class Itinerary(models.Model):
     destination = models.ForeignKey(Destination,on_delete=models.CASCADE)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    description= models.TextField(max_length=250)
+    description = models.TextField(max_length=250)
 
     def __str__(self):
         return self.description
