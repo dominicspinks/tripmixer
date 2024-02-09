@@ -21,24 +21,16 @@
         {% for destination in holiday.destination_set.all %}
         <div class="card mb-2">
             <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <h5 class="card-title">{{ destination.location }}</h5>
-                        <p class="card-text">
-                            {{ destination.start_date|date:"N j, Y" }} - {{ destination.end_date|date:"N j, Y" }}
-                        </p>
-                    </div>
-                    <div class="col">
-                        <div class="float-end align-items-center">
-                            <a href="{% url 'destinations-detail' holiday.id destination.id %}"
-                                class="btn btn-sm btn-custom">View</a>
-                            <a href="{% url 'destination-update' holiday_id=destination.holiday.id pk=destination.id  %}"
-                                class="btn btn-sm btn-custom">Edit</a>
-                            <a href="{% url 'destination-delete' holiday_id=destination.holiday.id pk=destination.id %}"
-                                class="btn btn-sm btn-custom">Delete</a>
-                        </div>
-                    </div>
-                </div>
+                <h5 class="card-title">{{ destination.location }}</h5>
+                <p class="card-text">
+                    {{ destination.start_date|date:"N j, Y" }} - {{ destination.end_date|date:"N j, Y" }}
+                </p>
+                <a href="{% url 'destinations-detail' holiday.id destination.id %}"
+                    class="btn btn-sm btn-custom">View</a>
+                <a href="{% url 'destination-update' holiday_id=destination.holiday.id pk=destination.id  %}"
+                    class="btn btn-sm btn-custom">Edit</a>
+                <a href="{% url 'destination-delete' holiday_id=destination.holiday.id pk=destination.id %}"
+                    class="btn btn-sm btn-custom">Delete</a>
             </div>
         </div>
         {% endfor %}
