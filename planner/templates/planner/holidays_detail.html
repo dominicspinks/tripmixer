@@ -8,7 +8,7 @@
 <div class="container mt-5 holiday-detail">
     <h1 class="holiday-title">{{ holiday.name }}</h1>
     <div class="holiday-dates">
-        <p>{{ holiday.start_date|date:"N j, Y" }} to {{ holiday.end_date|date:"N j, Y" }}</p>
+        <p>{{ holiday.start_date|date:"j N, Y" }} to {{ holiday.end_date|date:"j N, Y" }}</p>
     </div>
     <div class="mb-3">
         <a href="{% url 'holiday-update' holiday.id %}" class="btn btn-custom1">Edit</a>
@@ -21,16 +21,22 @@
         {% for destination in holiday.destination_set.all %}
         <div class="card mb-2">
             <div class="card-body">
-                <h5 class="card-title">{{ destination.location }}</h5>
-                <p class="card-text">
-                    {{ destination.start_date|date:"N j, Y" }} - {{ destination.end_date|date:"N j, Y" }}
-                </p>
-                <a href="{% url 'destinations-detail' holiday.id destination.id %}"
-                    class="btn btn-sm btn-custom">View</a>
-                <a href="{% url 'destination-update' holiday_id=destination.holiday.id pk=destination.id  %}"
-                    class="btn btn-sm btn-custom">Edit</a>
-                <a href="{% url 'destination-delete' holiday_id=destination.holiday.id pk=destination.id %}"
-                    class="btn btn-sm btn-custom">Delete</a>
+                <div class="d-flex justify-content-between align-items-end flex-wrap">
+                    <div>
+                        <h5 class="card-title">{{ destination.location }}</h5>
+                        <p class="card-text">
+                            {{ destination.start_date|date:"j N, Y" }} - {{ destination.end_date|date:"j N, Y" }}
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="{% url 'destinations-detail' holiday.id destination.id %}"
+                            class="btn btn-sm btn-custom">View</a>
+                        <a href="{% url 'destination-update' holiday_id=destination.holiday.id pk=destination.id  %}"
+                            class="btn btn-sm btn-custom">Edit</a>
+                        <a href="{% url 'destination-delete' holiday_id=destination.holiday.id pk=destination.id %}"
+                            class="btn btn-sm btn-custom">Delete</a>
+                    </div>
+                </div>
             </div>
         </div>
         {% endfor %}

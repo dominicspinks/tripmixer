@@ -12,7 +12,7 @@
                 href="{% url 'holiday-detail' holiday.id %}">{{ destination.holiday }}</a>
         </h4>
     </div>
-    <h5>{{ destination.start_date }} to {{ destination.end_date }}</h5>
+    <h5>{{ destination.start_date|date:"j N, Y" }} to {{ destination.end_date|date:"j N, Y" }}</h5>
     {% if destination.description %}
     <div class="card mb-3">
         <div class="card-body">
@@ -52,7 +52,7 @@
     </tbody>
     </table>
     {% else %}
-    <div>{{destination.location}} still do not have any itinerary available</div>
+    <div>Press the button below to start adding items to your itinerary!</div>
     {% endif %}
 
     <!-- Button trigger modal -->
