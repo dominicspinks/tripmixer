@@ -19,9 +19,9 @@ class Holiday(models.Model):
 class Destination(models.Model):
     holiday = models.ForeignKey(Holiday,on_delete=models.CASCADE)
     location = models.CharField(max_length=100)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
-    description=models.TextField(max_length=250)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    description=models.TextField(max_length=250, blank=True, default='')
 
     def __str__(self):
         return self.location

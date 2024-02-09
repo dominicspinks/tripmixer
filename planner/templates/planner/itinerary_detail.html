@@ -1,26 +1,38 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Itinerary Details | TripMixer{% endblock %}
+
 {% block content %}
 
-<h1>Itinerary Details</h1>
-
-<div class="row">
-  <div class="col s6">
-    <div class="card">
-      <div class="card-content">
-      <div>Destination : <a href="{% url 'destinations-detail' destination.holiday.id destination.id %}">{{ itinerary.destination }}</a></div>
-      <div>Start Date : {{ itinerary.start_date }}</div>
-      <div>End Date : {{ itinerary.end_date }}</div>
-      <div>Description : {{ itinerary.description }}</div>
-      {% if itinerary.accommodation %}
-      <div>Accommodation Name : {{ itinerary.accommodation.accom_name}}</div>
-      <div>Accommodation Type : {{ itinerary.accommodation.accom_type}}</div>
-      {% endif %}
-      </div>
-      <div class="card-action">
-        <a href="{% url 'itinerary_update' destination.id itinerary.id %}">Edit</a>
-        <a href="{% url 'itinerary_delete' destination.id itinerary.id %}">Delete</a>
-      </div>
+<div class="container">
+    <h1 class="title mt-5 mb-3">Itinerary Details</h1>
+    <div class="col s6">
+        <div class="card">
+            <div class="card-body">
+                <div class="h4">
+                    Destination :
+                    <a
+                        href="{% url 'destinations-detail' destination.holiday.id destination.id %}">{{ itinerary.destination }}</a>
+                </div>
+                <div>Start Date : {{ itinerary.start_date }}</div>
+                <div>End Date : {{ itinerary.end_date }}</div>
+                <div>Description : {{ itinerary.description }}</div>
+                {% if itinerary.accommodation %}
+                <div>
+                    Accommodation Name : {{ itinerary.accommodation.accom_name}}
+                </div>
+                <div>
+                    Accommodation Type : {{ itinerary.accommodation.accom_type}}
+                </div>
+                {% endif %}
+                <a class="btn btn-sm btn-custom"
+                    href="{% url 'itinerary_update' destination.id itinerary.id %}">Edit</a>
+                <a class="btn btn-sm btn-custom"
+                    href="{% url 'itinerary_delete' destination.id itinerary.id %}">Delete</a>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
-  {% endblock %}
+{% endblock %}

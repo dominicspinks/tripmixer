@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block title %}Dashboard | TripMixer{% endblock %}
+
 {% block content %}
 
 <div class="banner-container">
@@ -22,7 +25,12 @@
                 <ul class="list-group list-group-flush">
                     {% for holiday in holidays %}
                     <li class="list-group-item">
-                        <a href="{{ holiday.get_absolute_url }}" class="card-title card-custom">{{ holiday.name}}</a>
+
+                        <!-- <a href="{{ holiday.get_absolute_url }}" class="card-title card-custom">{{ holiday.name}}</a> -->
+                        <a class="stretched-link" href="{% url 'holiday-detail'  holiday.id %}"></a>
+                        <h5 class="card-title">{{ holiday.name }}</h5>
+                        <p class="card-text small text-muted">{{ holiday.start_date }} - {{ holiday.end_date }}</p>
+
                         {% for destination in holiday.destination_set.all %}
                         <span style="background-color:#F79920!important;"
                             class="badge bg-primary">{{destination.location }}</span>
@@ -46,7 +54,8 @@
                 <ul class="list-group list-group-flush">
                     {% for post in posts %}
                     <li class="list-group-item">
-                        <a href="{{ post.get_absolute_url }}" class="card-title card-custom">{{ post.title }}</a>
+                        <a class="stretched-link" href="{{ post.get_absolute_url }}"></a>
+                        <h5>{{ post.title }}</h5>
                         <p class="card-text small text-muted">{{ post.create_date }}</p>
                     </li>
                     {% endfor %}
