@@ -28,9 +28,14 @@ Technology used includes:
 -   Draw up wireframe
 -   Set up Django Development Environment and Urls Path, Views and HTML templates
 -   Work Individually on each views and urls as well as HTML templates
+-   Regroup to deploy and/or solve coding issues
 
 ## :scream: Bugs to fix :poop:
 
 ## :sob: Lessons learnt
+
+-   Want users to be able to follow one another
+-   Add location autofill features
+-   Add features to let user see post from the one they are following
 
 ## :white_check_mark: Future features
