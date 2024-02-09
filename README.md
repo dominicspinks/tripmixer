@@ -1,6 +1,4 @@
-# tripmixer
-
-<p align='center'><img src="./img/Logo.jpg" width=300 height=300></p>
+<p align='center'><img src="staticfiles/planner/images/main-logo.png" width="400"></p>
 
 # TripMixer
 
@@ -16,16 +14,28 @@ Technology used includes:
 -   CSS
 -   Bootstrap5
 
-![Alt text](./img/image.png)
+<p align='center'><img src="staticfiles/planner/images/landing_page.jpg" width="400"></p>
+
+<p align='center'><img src="staticfiles/planner/images/dashboard.jpg" width="400"></p>
 
 ## :computer: Getting Started
 
-[Click here](https://poomkhor.github.io/concentration-game/) to see my live project!
+[Click here](https://sei-tripmixer.fly.dev/) to see my live project!
 
 ## :pencil2: Planning & Problem Solving
+
+-   Laid out the ERD
+-   Draw up wireframe
+-   Set up Django Development Environment and Urls Path, Views and HTML templates
+-   Work Individually on each views and urls as well as HTML templates
+-   Regroup to deploy and/or solve coding issues
 
 ## :scream: Bugs to fix :poop:
 
 ## :sob: Lessons learnt
+
+-   Want users to be able to follow one another
+-   Add location autofill features
+-   Add features to let user see post from the one they are following
 
 ## :white_check_mark: Future features
