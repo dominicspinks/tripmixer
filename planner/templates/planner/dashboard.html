@@ -25,17 +25,23 @@
                 <ul class="list-group list-group-flush">
                     {% for holiday in holidays %}
                     <li class="list-group-item">
+
+                        <!-- <a href="{{ holiday.get_absolute_url }}" class="card-title card-custom">{{ holiday.name}}</a> -->
                         <a class="stretched-link" href="{% url 'holiday-detail'  holiday.id %}"></a>
                         <h5 class="card-title">{{ holiday.name }}</h5>
                         <p class="card-text small text-muted">{{ holiday.start_date }} - {{ holiday.end_date }}</p>
+
                         {% for destination in holiday.destination_set.all %}
-                        <span class="badge bg-primary">{{ destination.location }}</span>
+                        <span style="background-color:#F79920!important;"
+                            class="badge bg-primary">{{destination.location }}</span>
                         {% endfor %}
+                        <p class="card-text small text-muted">{{ holiday.start_date }} - {{ holiday.end_date }}</p>
+
                     </li>
                     {% endfor %}
                 </ul>
                 <div class="card-footer text-center">
-                    <a href="{% url 'holiday-list' %}" class="btn btn-primary">View All Holidays</a>
+                    <a href="{% url 'holiday-list' %}" class="btn btn-custom1">View All Holidays</a>
                 </div>
             </div>
         </div>
@@ -55,7 +61,7 @@
                     {% endfor %}
                 </ul>
                 <div class="card-footer text-center">
-                    <a href="{% url 'post-list' %}" class="btn btn-primary">View All Posts</a>
+                    <a href="{% url 'post-list' %}" class="btn btn-custom1">View All Posts</a>
                 </div>
             </div>
         </div>

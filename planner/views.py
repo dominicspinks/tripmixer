@@ -1,6 +1,6 @@
 from typing import Any
 from django.forms.models import BaseModelForm
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import HolidayForm, DestinationForm, ItineraryForm
@@ -11,8 +11,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from blog.models import Post
 from django.urls import reverse_lazy
-from django.urls import reverse_lazy
-
 
 # Create your views here
 def about(request):

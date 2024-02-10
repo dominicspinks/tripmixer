@@ -1,38 +1,52 @@
 {% extends 'base.html' %}
-
-{% block title %}Post Details | TripMixer{% endblock %}
-
+{% block title %}
+Post Details | TripMixer
+{%endblock%}
 {% block content %}
 
 <div class="container mt-3">
-    <h2>{{ post.title }}</h2>
+    <h2 class="mb-3">{{ post.title }}</h2>
     <!-- Carousel -->
     <div id="postImagesCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             {% for i in post.image_set.all %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <img src="{{ i.image.url }}" class="d-block w-100" alt="...">
+                <img src="{{ i.image.url }}" class="d-block w-100" alt="..." />
             </div>
             {% endfor %}
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#postImagesCarousel" data-bs-slide="prev">
+        <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#postImagesCarousel"
+            data-bs-slide="prev"
+        >
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#postImagesCarousel" data-bs-slide="next">
+        <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#postImagesCarousel"
+            data-bs-slide="next"
+        >
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+    <p class="h6 mt-3"><em>Author : {{post.user}}</em></p>
+    <p class="h6 mb-3"><em>Published Date : {{post.create_date|date:"j N Y"}}</em></p>
     <p>{{ post.description|linebreaks }}</p>
     <div class="mb-3">
-        {% if user.is_authenticated %}
-        <a href="{% url 'post-update' post.id %}" class="btn btn-custom1">Edit</a>
-        <a href="{% url 'post-delete' post.id %}" class="btn btn-custom1">Delete</a>
+        {% if user.is_authenticated and post.user == user %}
+        <a href="{% url 'post-update' post.id %}" class="btn btn-custom1"
+            >Edit</a
+        >
+        <a href="{% url 'post-delete' post.id %}" class="btn btn-custom1"
+            >Delete</a
+        >
         {% endif %}
     </div>
-
 </div>
-
 
 {% endblock %}
