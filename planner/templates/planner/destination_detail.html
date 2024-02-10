@@ -8,7 +8,7 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-end flex-wrap mt-5 mb-3">
         <h1 class="title flex-shrink-0">Destination {{destination.location}}</h1>
-        <h4 class="flex-shrink-0"> Holiday : <a
+        <h4 class="flex-shrink-0"> Holiday : <a class='btn btn-custom'
                 href="{% url 'holiday-detail' holiday.id %}">{{ destination.holiday }}</a>
         </h4>
     </div>
@@ -35,7 +35,7 @@
                 {% for itinerary in destination.itinerary_set.all %}
                 <tr>
                     <td>
-                        <a href="{% url 'itinerary-detail' destination.id itinerary.id %}">
+                        <a href="{% url 'itinerary-detail' destination.id itinerary.id %}" class="text-decoration-none text-reset">
                             {{ itinerary.description }}</a>
                     </td>
                     {% if itinerary.accommodation %}
