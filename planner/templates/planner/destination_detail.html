@@ -10,7 +10,7 @@
         <h1 class="title flex-shrink-0">Destination {{destination.location}}</h1>
 
         <h4 class="flex-shrink-0"> Holiday : <a class='btn btn-custom'
-                href="{% url 'holiday-detail' holiday.id %}">{{ destination.holiday }}</a>
+                href="{% url 'holiday-detail' destination.holiday.id %}">{{ destination.holiday }}</a>
 
         </h4>
     </div>

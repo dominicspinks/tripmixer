@@ -9,10 +9,6 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-end flex-wrap mt-5 mb-3">
         <h1 class="title flex-shrink-0">Itinerary Details</h1>
-        <h4>
-            Destination : <a
-                href="{% url 'destinations-detail' itinerary.destination.holiday.id itinerary.destination.id %}">{{ itinerary.destination }}</a>
-        </h4>
     </div>
     <h5>{{ itinerary.start_date|date:"j M, Y g:i A" }} to
         {% if itinerary.ends_same_day %}{{ itinerary.end_date|date:"g:i A" }}{% else %}{{ itinerary.end_date|date:"j M, Y g:i A" }}{% endif %}
@@ -23,7 +19,7 @@
                 <div class="h4">
                     Destination :
                     <a class='btn btn-custom'
-                        href="{% url 'destinations-detail' destination.holiday.id destination.id %}">{{ itinerary.destination }}</a>
+                        href="{% url 'destinations-detail' itinerary.destination.holiday.id itinerary.destination.id %}">{{ itinerary.destination }}</a>
                 </div>
                 <div>Start Date : {{ itinerary.start_date }}</div>
                 <div>End Date : {{ itinerary.end_date }}</div>
