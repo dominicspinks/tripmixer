@@ -13,7 +13,8 @@
         <div class="col-md-4 mb-3">
             <div class="card">
                 {% if post.image_set.first %}
-                <img src="{{ post.image_set.first.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                <img src="{{ post.image_set.first.image.url }}" class="card-img-top" alt="{{ post.title }}"
+                    style="max-height:250px;">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ post.title }}</h5>
