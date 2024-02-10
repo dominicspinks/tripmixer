@@ -107,10 +107,6 @@ class DestinationUpdate(LoginRequiredMixin, UpdateView):
 
         return context
 
-    # def get_success_url(self):
-    #     holiday_id = self.object.holiday.id
-    #     return reverse_lazy('holiday-detail', kwargs={'pk': holiday_id})
-
 class DestinationDelete(LoginRequiredMixin, DeleteView):
     model = Destination
 
@@ -123,10 +119,20 @@ class DestinationDelete(LoginRequiredMixin, DeleteView):
 @login_required
 def itinerary_detail(request, destination_id, itinerary_id):
     itinerary = Itinerary.objects.get(id=itinerary_id)
-    destination = Destination.objects.get(id=destination_id)
     # if Accommodation.objects.get(id=itinerary_id):
     #     accommodation = Accommodation.objects.get(id=itinerary_id)
-    return render(request, 'planner/itinerary_detail.html', {'itinerary':itinerary, 'destination': destination})
+
+    # Create form for adding an Itinerary item
+    itinerary_form = ItineraryForm(instance=itinerary)
+
+    return render(
+        request,
+        'planner/itinerary_detail.html',
+        {
+            'itinerary': itinerary,
+            'itinerary_form': itinerary_form
+        }
+    )
 
 class ItinCreate(LoginRequiredMixin, CreateView):
     model = Itinerary

@@ -77,7 +77,7 @@
                 </div>
                 <div class="modal-body">
                     {{ itinerary_form.media }}
-                    <form action="{% url 'itinerary_create' destination.id %}" method="POST">
+                    <form action="{% url 'itinerary-create' destination.id %}" method="POST">
                         {% csrf_token %}
                         {{ itinerary_form|crispy }}
                         <input type="submit" class="btn btn-custom" value="Add Itinerary">

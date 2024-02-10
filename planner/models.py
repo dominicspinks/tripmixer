@@ -42,6 +42,10 @@ class Itinerary(models.Model):
     def get_absolute_url(self):
         return reverse('itinerary-detail', kwargs={'itinerary_id': self.id, 'destination_id': self.destination.id})
 
+    # Function to check if the itinerary starts and ends on the same day
+    def ends_same_day(self):
+        return self.start_date.date() == self.end_date.date()
+
 ACCOM_TYPES = (
     ('Hotels', 'Hotels'),
     ('Hostel', 'Hostels'),
