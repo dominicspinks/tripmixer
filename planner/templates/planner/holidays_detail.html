@@ -33,8 +33,6 @@
                     <div class="flex-shrink-0">
                         <a href="{% url 'destinations-detail' holiday.id destination.id %}"
                             class="btn btn-sm btn-custom">View</a>
-                        <a href="{% url 'destination-update' holiday_id=destination.holiday.id pk=destination.id  %}"
-                            class="btn btn-sm btn-custom">Edit</a>
                         <a href="{% url 'destination-delete' holiday_id=destination.holiday.id pk=destination.id %}"
                             class="btn btn-sm btn-custom">Delete</a>
                     </div>

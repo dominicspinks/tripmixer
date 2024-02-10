@@ -3,16 +3,15 @@
 {% block title %}Remove Destination | TripMixer{% endblock %}
 
 {% block content %}
-<h1>Delete Destination</h1>
 
-<h4>Are you sure you want to delete {{ object.name }}?</h4>
+<div class="container">
+    <h1 class="mt-5 mb-3">Delete Destination</h1>
 
-<form action="" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Yes - Delete!" class="btn">
-
-    <a href="{% url 'holiday-detail' destination.holiday.id %}">Cancel</a>
-
-</form>
-
+    <h4>Are you sure you want to delete {{ object.name }}?</h4>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Yes - Delete!" class="btn btn-danger">
+        <a class="btn btn-custom" href="{% url 'holiday-detail' destination.holiday.id %}">Cancel</a>
+    </form>
+</div>
 {% endblock %}
