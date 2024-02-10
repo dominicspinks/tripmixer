@@ -1,6 +1,6 @@
 from typing import Any
 from django.forms.models import BaseModelForm
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import HolidayForm, DestinationForm, ItineraryForm, AccommodationForm
@@ -14,7 +14,6 @@ from django.urls import reverse_lazy
 
 # About page
 def about(request):
-
     return render(request, 'about.html')
 
 # Dashboard
@@ -105,8 +104,6 @@ def destinations_detail(request, holiday_id, destination_id):
 
     # Create form for editing the destination details
     destination_form = DestinationForm(instance=destination)
-
-
 
     return render(
         request,
@@ -229,7 +226,7 @@ class AccomCreate(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         destination_id = self.object.itinerary.destination.id
-        itinerary_id = self.object.id
+        itinerary_id = self.object.itinerary.id
 
         return reverse_lazy('itinerary-detail', kwargs={'destination_id': destination_id, 'itinerary_id': itinerary_id })
 
