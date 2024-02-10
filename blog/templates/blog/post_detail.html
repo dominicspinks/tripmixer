@@ -34,11 +34,11 @@ Post Details | TripMixer
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <p class="h6 mt-3">Author : {{post.user}}</p>
-    <p class="h6">Published Date : {{post.create_date|date:"j N Y"}}</p>
+    <p class="h6 mt-3"><em>Author : {{post.user}}</em></p>
+    <p class="h6 mb-3"><em>Published Date : {{post.create_date|date:"j N Y"}}</em></p>
     <p>{{ post.description|linebreaks }}</p>
     <div class="mb-3">
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and post.user == user %}
         <a href="{% url 'post-update' post.id %}" class="btn btn-custom1"
             >Edit</a
         >
