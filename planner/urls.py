@@ -18,7 +18,5 @@ urlpatterns = [
     path('destinations/<int:destination_id>/itinerary/<int:pk>/update', views.ItinUpdate.as_view(), name='itinerary-update'),
     path('destinations/<int:destination_id>/itinerary/<int:pk>/delete', views.ItinDelete.as_view(), name='itinerary-delete'),
     path('destinations/<int:destination_id>/itinerary/<int:itinerary_id>/accommodation', views.AccomCreate.as_view(), name='accom-create'),
-    path('destinations/<int:destination_id>/itinerary/<int:itinerary_id>/accommodation/<int:accommodation_id>/update', views.AccomUpdate.as_view(), name='accom-update'),
-    path('destinations/<int:destination_id>/itinerary/<int:itinerary_id>/accommodation/delete', views.AccomDelete.as_view(), name='accom-delete'),
     path('accounts/signup/', views.signup, name='signup'),
 ]

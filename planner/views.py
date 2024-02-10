@@ -3,7 +3,7 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import HolidayForm, DestinationForm, ItineraryForm
+from .forms import HolidayForm, DestinationForm, ItineraryForm, AccommodationForm
 from django.contrib.auth import login
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
@@ -89,7 +89,10 @@ class HolidayUpdate(LoginRequiredMixin, UpdateView):
 # CBV to handle delete confirmation and deleting holiday from db
 class HolidayDelete(LoginRequiredMixin, DeleteView):
     model = Holiday
-    success_url = '/holidays'
+
+    def get_success_url(self):
+
+        return reverse_lazy('holiday-list')
 
 ## Destinations ##
 # Destination Details page
@@ -102,6 +105,8 @@ def destinations_detail(request, holiday_id, destination_id):
 
     # Create form for editing the destination details
     destination_form = DestinationForm(instance=destination)
+
+
 
     return render(
         request,
@@ -157,12 +162,16 @@ def itinerary_detail(request, destination_id, itinerary_id):
     # Create form for adding an Itinerary item
     itinerary_form = ItineraryForm(instance=itinerary)
 
+    # Create form for adding an accommodation to an itinerary
+    accommodation_form = AccommodationForm()
+
     return render(
         request,
         'planner/itinerary_detail.html',
         {
             'itinerary': itinerary,
-            'itinerary_form': itinerary_form
+            'itinerary_form': itinerary_form,
+            'accommodation_form':  accommodation_form
         }
     )
 
@@ -180,9 +189,9 @@ class ItinCreate(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         destination_id = self.object.destination.id
-        holiday_id = self.object.destination.holiday.id
+        itinerary_id = self.object.id
 
-        return reverse_lazy('destination-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
+        return reverse_lazy('itinerary-detail', kwargs={'destination_id': destination_id, 'itinerary_id': itinerary_id})
 
 # CBV to handle requests for updating an itinery item
 class ItinUpdate(LoginRequiredMixin, UpdateView):
@@ -220,23 +229,9 @@ class AccomCreate(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         destination_id = self.object.itinerary.destination.id
-        holiday_id = self.object.itinerary.destination.holiday.id
+        itinerary_id = self.object.id
 
-        return reverse_lazy('destination-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
-
-# CBV to handle requests for updating an accommodation item
-class AccomUpdate(LoginRequiredMixin, UpdateView):
-    model = Accommodation
-    fields = ['accom_name', 'accom_type']
-
-# CBV to handle delete confirmation
-class AccomDelete(LoginRequiredMixin, DeleteView):
-    model = Accommodation
-
-    def get_success_url(self):
-        destination_id = self.object.destination.id
-        itinerary_id = self.object.itinerary.id
-        return reverse_lazy('destination-detail', kwargs={'destination_id': destination_id, 'itinerary_id': itinerary_id})
+        return reverse_lazy('itinerary-detail', kwargs={'destination_id': destination_id, 'itinerary_id': itinerary_id })
 
 # Handle signing up new users
 def signup(request):
