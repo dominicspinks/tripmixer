@@ -1,28 +1,19 @@
-<p align='center'><img src="staticfiles/planner/images/main-logo.png" width="400"></p>
+<p align='center'><img src="staticfiles/planner/images/mainlogo.png" width="400"></p>
 
-# TripMixer
+# ✈️ TripMixer ✈️
 
-## :page_facing_up: About
+This is a group project where three team members collaborated to tackle various challenges, learning valuable lessons along the way.
 
-TripMixer is your ultimate gateway to crafting unforgettable journeys. With our intuitive platform, you can effortlessly plan your holiday, select your dream destinations, and tailor a custom itinerary that perfectly suits your travel style. But TripMixer is more than just a planning tool; it's a vibrant community of travelers.
-Share your adventures in blog posts, discover new places through the experiences of others, and gather inspiration for your next escape. Whether you're a seasoned explorer or a first-time traveler, TripMixer makes it easy to navigate the world, one trip at a time.
+## 🌏 Introduction
 
-Technology used includes:
+TripMixer is a robust Full-Stack App built with HTML, CSS, Bootstrap5, Python, Django, PostgreSQL, Amazon S3, Docker and fly.io.
+This app is ultimate gateway to crafting unforgettable journeys. With our intuitive platform, you can effortlessly plan your holiday, select your dream destinations, and tailor a custom itinerary that perfectly suits your travel style. But TripMixer is more than just a planning tool; it's a vibrant community of travelers.
 
--   Django
--   HTML
--   CSS
--   Bootstrap5
+## 🔎 Explore the App
 
-<p align='center'><img src="staticfiles/planner/images/landing_page.jpg" width="400"></p>
+Discover the refined version of the [TripMixer Travel App](https://sei-tripmixer.fly.dev/) now live on fly.io.
 
-<p align='center'><img src="staticfiles/planner/images/dashboard.jpg" width="400"></p>
-
-## :computer: Getting Started
-
-[Click here](https://sei-tripmixer.fly.dev/) to see my live project!
-
-## :pencil2: Planning & Problem Solving
+## 📝 Planning & Problem Solving 🚩
 
 -   Laid out the ERD
 -   Draw up wireframe
@@ -30,12 +21,34 @@ Technology used includes:
 -   Work Individually on each views and urls as well as HTML templates
 -   Regroup to deploy and/or solve coding issues
 
-## :scream: Bugs to fix :poop:
+<img src="staticfiles/planner/images/wireframes.png" style="max-width:85%;">
+<img src="staticfiles/planner/images/ERD.png" style="max-width:85%;">
 
-## :sob: Lessons learnt
+## 📷 App Screenshots
 
--   Want users to be able to follow one another
+## 🤖 Technology used:
+
+-   Python
+-   Django
+-   PostgreSQL
+-   Amazon S3
+-   fly.io
+-   Docker
+-   HTML
+-   CSS
+-   Bootstrap5
+
+## 💪 Challenges Faced and Conquered 💪
+
+Despite the team project being less challenging than anticipated, we still encountered and overcame several hurdles together:
+
+-   Collaborating effectively, managing merge conflicts, and maintaining alignment.
+-   Learning to handle forms, especially for 'update' operations, and styling in class-based views.
+-   Adding Bootstrap5 Modals on Edit and Add pages
+-   Deploying the app on Fly.io.
+
+## 🚀 Future features
+
+-   Add 'Follow' button, so that a user can follow other users
 -   Add location autofill features
 -   Add features to let user see post from the one they are following
-
-## :white_check_mark: Future features
