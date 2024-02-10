@@ -13,12 +13,12 @@ Add/Update styling - Dom
 
 
 Blog: - Poom
-- Add the author/user + Create Date (Published)
-- Add control on the edit and Delete for user authent
+- Add the author/user + Create Date (Published) (completed)
+- Add control on the edit and Delete for user authent (completed)
 
-Add dynamic webpage/tab title - Dom
+Add dynamic webpage/tab title - Dom (completed)
 
-Readme - Poom
+Readme - Poom (completed)
 
 Clean up code, add comments where applicable
 
