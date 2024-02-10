@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .forms import ImageFormSet
 from django.db import transaction
+from planner.models import Holiday
 
 import datetime
 
@@ -48,6 +49,10 @@ class PostCreate(LoginRequiredMixin, CreateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields['holiday'].required = False
+
+        # Filter holiday dropdown list by user's holidays
+        user_holidays = Holiday.objects.filter(user=self.request.user)
+        form.fields['holiday'].queryset = user_holidays
         return form
 
     def form_valid(self, form):

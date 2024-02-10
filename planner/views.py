@@ -229,7 +229,7 @@ class AccomCreate(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         destination_id = self.object.itinerary.destination.id
-        itinerary_id = self.object.id
+        itinerary_id = self.object.itinerary.id
 
         return reverse_lazy('itinerary-detail', kwargs={'destination_id': destination_id, 'itinerary_id': itinerary_id })
 
