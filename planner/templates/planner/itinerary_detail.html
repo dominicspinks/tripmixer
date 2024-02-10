@@ -20,7 +20,16 @@
     <div class="col s6">
         <div class="card">
             <div class="card-body">
+                <div class="h4">
+                    Destination :
+                    <a class='btn btn-custom'
+                        href="{% url 'destinations-detail' destination.holiday.id destination.id %}">{{ itinerary.destination }}</a>
+                </div>
+                <div>Start Date : {{ itinerary.start_date }}</div>
+                <div>End Date : {{ itinerary.end_date }}</div>
+
                 <div>{{ itinerary.description }}</div>
+
                 {% if itinerary.accommodation %}
                 <div>
                     Accommodation Name : {{ itinerary.accommodation.accom_name}}

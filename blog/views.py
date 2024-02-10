@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Post
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .forms import ImageFormSet
 from django.db import transaction
@@ -23,6 +23,14 @@ def post_list(request):
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     return render(request, 'blog/post_detail.html', { 'post': post })
+
+class PostOwnerMixin(UserPassesTestMixin):
+    """
+    Mixin to verify that the current user is the owner of the post.
+    """
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.user
 
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
@@ -61,7 +69,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
         post_id = self.object.id
         return reverse_lazy('post-detail', kwargs={'post_id': post_id})
 
-class PostUpdate(LoginRequiredMixin, UpdateView):
+class PostUpdate(LoginRequiredMixin, PostOwnerMixin, UpdateView):
     model = Post
     fields = ('title', 'holiday', 'description', 'is_public')
 
@@ -96,7 +104,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
             return reverse_lazy('post-detail', kwargs={'post_id': post_id})
 
 
-class PostDelete(LoginRequiredMixin, DeleteView):
+class PostDelete(LoginRequiredMixin, PostOwnerMixin, DeleteView):
     model = Post
     # Add handling of deleting images from S3
 
