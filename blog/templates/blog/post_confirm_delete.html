@@ -10,7 +10,7 @@
     <h4>Are you sure you want to delete the post?</h4>
     <form action="" method="POST">
         {% csrf_token %}
-        <input type="submit" value="Yes - Delete!" class="btn btn-danger">
+        <input type="submit" value="Yes - Delete!" class="btn btn-custom1">
         <a class="btn btn-custom" href="{% url 'post-detail' post.id %}">Cancel</a>
     </form>
 </div>
