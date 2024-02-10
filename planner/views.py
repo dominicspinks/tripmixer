@@ -12,22 +12,26 @@ from django.contrib.auth.forms import UserCreationForm
 from blog.models import Post
 from django.urls import reverse_lazy
 
-# Create your views here
+# About page
 def about(request):
     return render(request, 'about.html')
 
+# Dashboard
 @login_required
 def planner_dashboard(request):
     holidays = Holiday.objects.filter(user=request.user).order_by('-start_date')[:3]
     posts = Post.objects.filter(user=request.user).order_by('-create_date')
     return render(request, 'planner/dashboard.html', { 'holidays': holidays, 'posts': posts })
 
+## Holiday pages ##
+# List of users holidays
 @login_required
 def holidays_list(request):
     holidays = Holiday.objects.filter(user=request.user)
     holiday_form = HolidayForm()
     return render(request, 'planner/holidays_list.html', { 'holidays': holidays, 'holiday_form': holiday_form })
 
+# Details of a single holiday
 @login_required
 def holidays_detail(request, pk):
     holiday = Holiday.objects.get(id=pk)
@@ -147,7 +151,7 @@ class ItinCreate(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         destination_id = self.object.destination.id
         holiday_id = self.object.destination.holiday.id
-        return reverse_lazy('destinations-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
+        return reverse_lazy('destination-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
 
 class ItinUpdate(LoginRequiredMixin, UpdateView):
     model = Itinerary
@@ -165,7 +169,7 @@ class ItinDelete(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         destination_id = self.object.destination.id
         holiday_id = self.object.destination.holiday.id
-        return reverse_lazy('destinations-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
+        return reverse_lazy('destination-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
 
 class AccomCreate(LoginRequiredMixin, CreateView):
     model = Accommodation
@@ -180,7 +184,7 @@ class AccomCreate(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         destination_id = self.object.itinerary.destination.id
         holiday_id = self.object.itinerary.destination.holiday.id
-        return reverse_lazy('destinations-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
+        return reverse_lazy('destination-detail', kwargs={'holiday_id': holiday_id, 'destination_id': destination_id})
 
 class AccomUpdate(LoginRequiredMixin, UpdateView):
     model = Accommodation
@@ -192,7 +196,7 @@ class AccomDelete(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         destination_id = self.object.destination.id
         itinerary_id = self.object.itinerary.id
-        return reverse_lazy('destinations-detail', kwargs={'destination_id': destination_id, 'itinerary_id': itinerary_id})
+        return reverse_lazy('destination-detail', kwargs={'destination_id': destination_id, 'itinerary_id': itinerary_id})
 
 def signup(request):
   error_message = ''

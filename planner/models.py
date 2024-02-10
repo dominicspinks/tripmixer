@@ -28,7 +28,7 @@ class Destination(models.Model):
         ordering = ['-start_date']
 
     def get_absolute_url(self):
-        return reverse('destinations-detail', kwargs={'holiday_id': self.holiday.id, 'destination_id': self.id })
+        return reverse('destination-detail', kwargs={'holiday_id': self.holiday.id, 'destination_id': self.id })
 
 class Itinerary(models.Model):
     destination = models.ForeignKey(Destination,on_delete=models.CASCADE)
