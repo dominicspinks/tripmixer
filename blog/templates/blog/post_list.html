@@ -17,6 +17,7 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="h6 mt-3 mb-3"><em>Author : {{post.user}}</em></p>
                     <a href="{% url 'post-detail' post.id %}" class="btn-custom1">Read More</a>
                 </div>
             </div>
