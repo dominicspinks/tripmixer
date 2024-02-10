@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-# from blog.models import Post
 
 # Create your models here.
 class Holiday(models.Model):
@@ -27,6 +26,9 @@ class Destination(models.Model):
         return self.location
     class Meta:
         ordering = ['-start_date']
+
+    def get_absolute_url(self):
+        return reverse('destinations-detail', kwargs={'holiday_id': self.holiday.id, 'destination_id': self.id })
 
 class Itinerary(models.Model):
     destination = models.ForeignKey(Destination,on_delete=models.CASCADE)
