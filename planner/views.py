@@ -1,6 +1,6 @@
 from typing import Any
 from django.forms.models import BaseModelForm
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import HolidayForm, DestinationForm, ItineraryForm
@@ -11,10 +11,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from blog.models import Post
 from django.urls import reverse_lazy
-from django.urls import reverse_lazy
-from django.http import Http404
-
-
 
 # Create your views here
 def about(request):
@@ -32,6 +28,21 @@ def holidays_list(request):
     holiday_form = HolidayForm()
     return render(request, 'planner/holidays_list.html', { 'holidays': holidays, 'holiday_form': holiday_form })
 
+@login_required
+def holidays_detail(request, pk):
+    holiday = Holiday.objects.get(id=pk)
+    holiday_form = HolidayForm(instance=holiday)
+    destination_form = DestinationForm()
+    return render(
+        request,
+        'planner/holidays_detail.html',
+        {
+            'holiday': holiday,
+            'destination_form': destination_form,
+            'holiday_form': holiday_form
+        }
+    )
+
 class HolidayCreate(LoginRequiredMixin, CreateView):
     model = Holiday
     fields = ['name', 'start_date', 'end_date']
@@ -40,28 +51,61 @@ class HolidayCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-
 class HolidayUpdate(LoginRequiredMixin, UpdateView):
     model = Holiday
     fields = ['name', 'start_date', 'end_date']
-   
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        holiday = Holiday.objects.get(id=self.object.id)
+        context['holiday_form'] = HolidayForm(instance=holiday)
+
+        return context
+
 class HolidayDelete(LoginRequiredMixin, DeleteView):
     model = Holiday
     success_url = '/holidays'
 
+## Destinations ##
+# Destination Details page
 @login_required
-def holidays_detail(request, pk):
-    holiday = Holiday.objects.get(id=pk)
-    destination_form = DestinationForm()
-    return render(request, 'planner/holidays_detail.html', { 'holiday': holiday,'destination_form': destination_form })
+def destinations_detail(request, holiday_id, destination_id):
+    destination = Destination.objects.get(id=destination_id)
+
+    # Create form for adding an Itinerary item
+    itinerary_form = ItineraryForm()
+
+    # Create form for editing the destination details
+    destination_form = DestinationForm(instance=destination)
+    return render(
+        request,
+        'planner/destination_detail.html',
+        {
+            'destination': destination,
+            'itinerary_form': itinerary_form,
+            'destination_form': destination_form,
+        }
+    )
+
+@login_required
+def destination_create(request, holiday_id):
+    form = DestinationForm(request.POST)
+    if form.is_valid():
+        new_destination = form.save(commit=False)
+        new_destination.holiday_id = holiday_id
+        new_destination.save()
+    return redirect('holiday-detail',pk=holiday_id)
 
 class DestinationUpdate(LoginRequiredMixin, UpdateView):
     model = Destination
-    fields = '__all__'
+    fields = ['location', 'start_date', 'end_date', 'description']
 
-    def get_success_url(self):
-        holiday_id = self.object.holiday.id
-        return reverse_lazy('holiday-detail', kwargs={'pk': holiday_id})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        destination = Destination.objects.get(id=self.object.id)
+        context['destination_form'] = DestinationForm(instance=destination)
+
+        return context
 
 class DestinationDelete(LoginRequiredMixin, DeleteView):
     model = Destination
@@ -70,29 +114,25 @@ class DestinationDelete(LoginRequiredMixin, DeleteView):
         holiday_id = self.object.holiday.id
         return reverse_lazy('holiday-detail', kwargs={'pk': holiday_id})
 
-@login_required
-def destinations_detail(request, holiday_id, destination_id):
-    destination = Destination.objects.get(id=destination_id)
-    holiday = Holiday.objects.get(id=holiday_id)
-    itinerary_form = ItineraryForm()
-    return render(request, 'planner/destination_detail.html', {'destination': destination, 'holiday': holiday, 'itinerary_form': itinerary_form})
 
-@login_required
-def add_destination(request, holiday_id):
-    form = DestinationForm(request.POST)
-    if form.is_valid():
-        new_destination = form.save(commit=False)
-        new_destination.holiday_id = holiday_id
-        new_destination.save()
-    return redirect('holiday-detail',pk=holiday_id)
 
 @login_required
 def itinerary_detail(request, destination_id, itinerary_id):
     itinerary = Itinerary.objects.get(id=itinerary_id)
-    destination = Destination.objects.get(id=destination_id)
     # if Accommodation.objects.get(id=itinerary_id):
     #     accommodation = Accommodation.objects.get(id=itinerary_id)
-    return render(request, 'planner/itinerary_detail.html', {'itinerary':itinerary, 'destination': destination})
+
+    # Create form for adding an Itinerary item
+    itinerary_form = ItineraryForm(instance=itinerary)
+
+    return render(
+        request,
+        'planner/itinerary_detail.html',
+        {
+            'itinerary': itinerary,
+            'itinerary_form': itinerary_form
+        }
+    )
 
 class ItinCreate(LoginRequiredMixin, CreateView):
     model = Itinerary

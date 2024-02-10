@@ -18,10 +18,11 @@
     <br>
     {% endif %}
 
+    {{ holiday_form.media }}
     <form action="" method="POST">
         {% csrf_token %}
         <table>
-            {{ form|crispy }}
+            {{ holiday_form|crispy }}
         </table>
         <input type="submit" value="Submit" class="btn-custom1">
     </form>
