@@ -2,7 +2,7 @@
 	function dynamicPostImageInputs() {
 		const form = document.querySelector('#add-post-form');
 
-		if (!form.length) return;
+		if (!form?.length) return;
 
 		const addImageBtn = document.querySelector('#add-image');
 		const totalFormsets = document.querySelector(
