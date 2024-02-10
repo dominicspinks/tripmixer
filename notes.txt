@@ -31,5 +31,5 @@ Checks:
 - double dates in dashboard holiday list - done
 - Remove edit button on holiday destination list - done
 - Add Accommodation
-- max height for blog list page and home page
+- max height for blog list page and home page - done
 - Comments/code clean up
