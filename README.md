@@ -6,7 +6,7 @@ This is a group project where three team members collaborated to tackle various 
 
 ## 🌏 Introduction
 
-TripMixer is a robust Full-Stack App built with HTML, CSS, Bootstrap5, Python, Django, PostgreSQL, Amazon S3, Docker and fly.io.
+TripMixer is a robust fully responsive Full-Stack App built with HTML, CSS, Bootstrap5, Python, Django, PostgreSQL, Amazon S3, Docker and fly.io.
 This app is ultimate gateway to crafting unforgettable journeys. With our intuitive platform, you can effortlessly plan your holiday, select your dream destinations, and tailor a custom itinerary that perfectly suits your travel style. But TripMixer is more than just a planning tool; it's a vibrant community of travelers.
 
 ## 🔎 Explore the App
@@ -25,6 +25,26 @@ Discover the refined version of the [TripMixer Travel App](https://sei-tripmixer
 <img src="staticfiles/planner/images/ERD.png" style="max-width:85%;">
 
 ## 📷 App Screenshots
+
+Login Page
+
+<img src="staticfiles/planner/images/Login.png" style="max-width:85%;">
+
+Home Page
+
+<img src="staticfiles/planner/images/homepage.png" style="max-width:85%;">
+
+Dashboard
+
+<img src="staticfiles/planner/images/dashboard.png" style="max-width:85%;">
+
+Blog
+
+<img src="staticfiles/planner/images/blog.png" style="max-width:85%;">
+
+Mobile Views
+
+<img src="staticfiles/planner/images/mobile.png">
 
 ## 🤖 Technology used:
 
