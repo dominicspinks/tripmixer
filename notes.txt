@@ -22,3 +22,14 @@ Clean up code, add comments where applicable
 Deploy (push latest changes)
 
 Add itinerary items to destination cards of holiday details page
+
+
+
+
+Checks:
+- formatting on delete pages - Done
+- double dates in dashboard holiday list - done
+- Remove edit button on holiday destination list - done
+- Add Accommodation
+- max height for blog list page and home page
+- Comments/code clean up
