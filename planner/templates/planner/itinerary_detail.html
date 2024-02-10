@@ -9,6 +9,11 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-end flex-wrap mt-5 mb-3">
         <h1 class="title flex-shrink-0">Itinerary Details</h1>
+        <h4>
+            Destination :
+            <a class='btn btn-custom'
+                href="{% url 'destination-detail' itinerary.destination.holiday.id itinerary.destination.id %}">{{ itinerary.destination }}</a>
+        </h4>
     </div>
     <h5>{{ itinerary.start_date|date:"j M, Y g:i A" }} to
         {% if itinerary.ends_same_day %}{{ itinerary.end_date|date:"g:i A" }}{% else %}{{ itinerary.end_date|date:"j M, Y g:i A" }}{% endif %}
@@ -16,18 +21,10 @@
     <div class="col s6">
         <div class="card">
             <div class="card-body">
-                <div class="h4">
-                    Destination :
-                    <a class='btn btn-custom'
-                        href="{% url 'destinations-detail' itinerary.destination.holiday.id itinerary.destination.id %}">{{ itinerary.destination }}</a>
-                </div>
-                <div>Start Date : {{ itinerary.start_date }}</div>
-                <div>End Date : {{ itinerary.end_date }}</div>
-
                 <div>{{ itinerary.description }}</div>
 
                 {% if itinerary.accommodation %}
-                <div>
+                <div class="mt-2">
                     Accommodation Name : {{ itinerary.accommodation.accom_name}}
                 </div>
                 <div>
@@ -37,6 +34,12 @@
             </div>
         </div>
         <div class="mt-2">
+            {% if not itinerary.accommodation %}
+            <button type="button" class="btn btn-custom1" data-bs-toggle="modal"
+                data-bs-target="#addAccommodationModal">
+                Add Accommodation
+            </button>
+            {% endif %}
             <button type="button" class="btn btn-custom1" data-bs-toggle="modal" data-bs-target="#editItineraryModal">
                 Edit
             </button>
@@ -59,6 +62,27 @@
                     <form action="{% url 'itinerary-update' itinerary.destination.id itinerary.id %}" method="POST">
                         {% csrf_token %}
                         {{ itinerary_form|crispy }}
+                        <input type="submit" class="btn btn-custom" value="Save">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add Accommodation Form -->
+    <div class="modal fade" id="addAccommodationModal" tabindex="-1" aria-labelledby="addAccommodationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addAccommodationModalLabel">Add Accommodation</h5>
+                    <button type="button" class="btn-custom" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                    {{ accommodation_form.media }}
+                    <form action="{% url 'accom-create' itinerary.destination.id itinerary.id %}" method="POST">
+                        {% csrf_token %}
+                        {{ accommodation_form|crispy }}
                         <input type="submit" class="btn btn-custom" value="Save">
                     </form>
                 </div>

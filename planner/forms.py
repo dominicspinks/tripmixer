@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Holiday, Destination, Itinerary
+from .models import Holiday, Destination, Itinerary, Accommodation
 from bootstrap_datepicker_plus.widgets import DateTimePickerInput, DatePickerInput
 
 class DestinationForm(ModelForm):
@@ -80,4 +80,13 @@ class HolidayForm(ModelForm):
         labels = {
             'start_date': 'Start Date',
             'end_date': 'End Date'
+        }
+
+class AccommodationForm(ModelForm):
+    class Meta:
+        model = Accommodation
+        fields = ['accom_name','accom_type']
+        labels = {
+            'accom_name': 'Accommodation Name',
+            'accom_type': 'Type'
         }

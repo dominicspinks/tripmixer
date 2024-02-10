@@ -44,16 +44,16 @@
                 {% for itinerary in destination.itinerary_set.all %}
                 <tr>
                     <td>
-                        <a href="{% url 'itinerary-detail' destination.id itinerary.id %}" class="text-decoration-none text-reset">
+                        <a href="{% url 'itinerary-detail' destination.id itinerary.id %}"
+                            class="text-decoration-none text-reset">
                             {{ itinerary.description }}</a>
                     </td>
                     {% if itinerary.accommodation %}
                     <td>{{itinerary.accommodation.accom_name}}</td>
                     <td>{{itinerary.accommodation.accom_type}}</td>
                     {% else %}
-
-                    <td><a class='btn btn-custom1' href="{% url 'accom-create' destination.id itinerary.id %}">Add
-                        Accommodation</a></td>
+                    <td></td>
+                    <td></td>
                     {% endif %}
                 </tr>
                 {% endfor %}
@@ -111,4 +111,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
