@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-# from blog.models import Post
 
 # Create your models here.
 class Holiday(models.Model):
@@ -28,6 +27,9 @@ class Destination(models.Model):
     class Meta:
         ordering = ['-start_date']
 
+    def get_absolute_url(self):
+        return reverse('destinations-detail', kwargs={'holiday_id': self.holiday.id, 'destination_id': self.id })
+
 class Itinerary(models.Model):
     destination = models.ForeignKey(Destination,on_delete=models.CASCADE)
     start_date = models.DateTimeField()
@@ -39,6 +41,10 @@ class Itinerary(models.Model):
 
     def get_absolute_url(self):
         return reverse('itinerary-detail', kwargs={'itinerary_id': self.id, 'destination_id': self.destination.id})
+
+    # Function to check if the itinerary starts and ends on the same day
+    def ends_same_day(self):
+        return self.start_date.date() == self.end_date.date()
 
 ACCOM_TYPES = (
     ('Hotels', 'Hotels'),

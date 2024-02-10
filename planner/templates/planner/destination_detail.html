@@ -9,10 +9,10 @@
     <div class="d-flex justify-content-between align-items-end flex-wrap mt-5 mb-3">
         <h1 class="title flex-shrink-0">Destination {{destination.location}}</h1>
         <h4 class="flex-shrink-0"> Holiday : <a
-                href="{% url 'holiday-detail' holiday.id %}">{{ destination.holiday }}</a>
+                href="{% url 'holiday-detail' destination.holiday.id %}">{{ destination.holiday }}</a>
         </h4>
     </div>
-    <h5>{{ destination.start_date|date:"j N, Y" }} to {{ destination.end_date|date:"j N, Y" }}</h5>
+    <h5>{{ destination.start_date|date:"j M, Y" }} to {{ destination.end_date|date:"j M, Y" }}</h5>
     {% if destination.description %}
     <div class="card mb-3">
         <div class="card-body">
@@ -20,6 +20,13 @@
         </div>
     </div>
     {% endif %}
+    <div class="mb-3">
+        <button type="button" class="btn btn-custom1" data-bs-toggle="modal" data-bs-target="#editDestinationModal">
+            Edit
+        </button>
+        <a href="{% url 'destination-delete' destination.holiday.id destination.id %}"
+            class="btn btn-custom1">Delete</a>
+    </div>
     <h3 class="mt-4">Itinerary List</h3>
     <div>
         {% if destination.itinerary_set.count %}
@@ -46,21 +53,20 @@
                         Accommodation</a>
                     {% endif %}
                 </tr>
-
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div>Press the button below to start adding items to your itinerary!</div>
+        {% endif %}
     </div>
-    {% endfor %}
-    </tbody>
-    </table>
-    {% else %}
-    <div>Press the button below to start adding items to your itinerary!</div>
-    {% endif %}
 
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-custom1" data-bs-toggle="modal" data-bs-target="#addItineraryModal">
         Add New Itinerary
     </button>
 
-    <!-- Modal -->
+    <!-- Modal Add Itinerary Form-->
     <div class="modal fade" id="addItineraryModal" tabindex="-1" aria-labelledby="addItineraryModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -71,10 +77,31 @@
                 </div>
                 <div class="modal-body">
                     {{ itinerary_form.media }}
-                    <form action="{% url 'itinerary_create' destination.id %}" method="POST">
+                    <form action="{% url 'itinerary-create' destination.id %}" method="POST">
                         {% csrf_token %}
                         {{ itinerary_form|crispy }}
                         <input type="submit" class="btn btn-custom" value="Add Itinerary">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Destination Form -->
+    <div class="modal fade" id="editDestinationModal" tabindex="-1" aria-labelledby="editDestinationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editDestinationModalLabel">Edit Destination</h5>
+                    <button type="button" class="btn-custom" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                    {{ destination_form.media }}
+                    <form action="{% url 'destination-update' destination.holiday.id destination.id %}" method="POST">
+                        {% csrf_token %}
+                        {{ destination_form|crispy }}
+                        <input type="submit" class="btn btn-custom" value="Save">
                     </form>
                 </div>
             </div>

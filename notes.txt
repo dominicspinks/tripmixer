@@ -1,12 +1,8 @@
 Todo:
 Add cancel buttons to create and update pages
-- Edit Destination** Mavia
 
 
 Add/Update styling - Dom
-- Log in pages - Done
-- Sign up page - Done
-- Delete posts - Done
 - Destination Detail page
 - Itinerary Detail page
 - Edit itinerary
@@ -15,8 +11,6 @@ Add/Update styling - Dom
 Blog: - Poom
 - Add the author/user + Create Date (Published)
 - Add control on the edit and Delete for user authent
-
-Add dynamic webpage/tab title - Dom
 
 Readme - Poom
 

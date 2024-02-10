@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}Edit Destination | TripMixer{% endblock %}
 
@@ -9,9 +10,7 @@
 
 <form action="" method="POST">
     {% csrf_token %}
-    <table>
-        {{ form.as_p }}
-    </table>
+    {{ destination_form|crispy }}
     <input type="submit" value="Submit" class="btn">
 </form>
 
