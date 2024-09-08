@@ -11,7 +11,7 @@ This app is ultimate gateway to crafting unforgettable journeys. With our intuit
 
 ## 🔎 Explore the App
 
-Discover the refined version of the [TripMixer Travel App](https://sei-tripmixer.fly.dev/) now live on fly.io.
+Discover your next adventure with the [TripMixer Travel App](https://tripmixer.dominicspinks.com/).
 
 ## 📝 Planning & Problem Solving 🚩
 
