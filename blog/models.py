@@ -1,16 +1,23 @@
 from django.db import models
 from django.urls import reverse
-from django.apps import apps
+from django.conf import settings
 import uuid
-
-# import planner.models as Planner_Models
 from django.contrib.auth.models import User
 
-# Function to add random string to start of image file names to avoid duplicate names in S3
 def prepend_filename(instance, filename):
-    return f"blog_images/{uuid.uuid4().hex[:8]}-{filename}"
+    """
+    Generates a unique filename
+    """
+    return f"{uuid.uuid4().hex[:8]}-{filename}"
 
-# Create your models here.
+def prepend_aws_filename(instance, filename):
+    """
+    Generates a unique filename based on the storage type.
+    - For storebytes: No subfolders are used.
+    - For AWS S3: Files are placed in the 'blog_images/' subfolder.
+    """
+    return f"blog_images/{prepend_filename(filename)}"
+
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     holiday = models.ForeignKey('planner.Holiday', null=True, on_delete=models.SET_NULL, default=None)
@@ -29,7 +36,10 @@ class Post(models.Model):
 
 class Image(models.Model):
     post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=prepend_filename)
+    if settings.IMAGE_STORAGE_TYPE == 'storebytes':
+        image = models.ImageField(upload_to=prepend_filename)
+    elif settings.IMAGE_STORAGE_TYPE == 'aws_s3':
+        image = models.ImageField(upload_to=prepend_aws_filename)
 
     def __str__(self):
         return 'ImageField'

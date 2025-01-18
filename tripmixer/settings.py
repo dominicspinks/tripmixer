@@ -143,9 +143,15 @@ LOGIN_REDIRECT_URL = '/planner/'
 
 LOGOUT_REDIRECT_URL = '/'
 
+IMAGE_STORAGE_TYPE = env('IMAGE_STORAGE_TYPE', default='aws_s3')  # Options: 'aws_s3', 'storebytes'
+if IMAGE_STORAGE_TYPE == 'storebytes':
+    FILE_STORAGE_BACKEND = 'tripmixer.storebytes_storage.StoreBytesStorage'
+elif IMAGE_STORAGE_TYPE == 'aws_s3':
+    FILE_STORAGE_BACKEND = 'storages.backends.s3.S3Storage'
+
 STORAGES = {
     'default': {
-        'BACKEND': 'storages.backends.s3.S3Storage'
+        'BACKEND': FILE_STORAGE_BACKEND
     },
     'staticfiles': {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
@@ -155,6 +161,10 @@ STORAGES = {
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+
+STOREBYTES_API_KEY = env('STOREBYTES_API_KEY')
+STOREBYTES_API_URL = env('STOREBYTES_API_URL').rstrip('/')
+STOREBYTES_BUCKET_NAME = env('STOREBYTES_BUCKET_NAME')
 
 LOGGING = {
     'version': 1,
@@ -167,7 +177,7 @@ LOGGING = {
     },
     'handlers': {
         'file': {
-            'level': 'DEBUG',
+            'level': 'ERROR',
             'class': 'logging.FileHandler',
             'filename': env('DJANGO_LOG'),
             'formatter': 'verbose',
@@ -176,7 +186,7 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'DEBUG',
+            'level': 'ERROR',
             'propagate': True,
         },
     },
