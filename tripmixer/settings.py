@@ -148,6 +148,8 @@ if IMAGE_STORAGE_TYPE == 'storebytes':
     FILE_STORAGE_BACKEND = 'tripmixer.storebytes_storage.StoreBytesStorage'
 elif IMAGE_STORAGE_TYPE == 'aws_s3':
     FILE_STORAGE_BACKEND = 'storages.backends.s3.S3Storage'
+else:
+    FILE_STORAGE_BACKEND = 'storages.backends.s3.S3Storage'
 
 STORAGES = {
     'default': {
@@ -177,16 +179,19 @@ LOGGING = {
     },
     'handlers': {
         'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': env('DJANGO_LOG'),
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': env('DJANGO_LOG_FILENAME', default='django.log'),
+            'when': 'D', # this specifies the interval
+            'interval': 1, # defaults to 1, only necessary for other values
+            'backupCount': 10, # how many backup file to keep, 10 days
             'formatter': 'verbose',
         },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'ERROR',
+            'level': env('DJANGO_LOG_LEVEL', default='ERROR'),
             'propagate': True,
         },
     },
